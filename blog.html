@@ -1,104 +1,135 @@
 <!DOCTYPE html>
-<html lang="ru">
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Блог</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Name-folio — Blog</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-  <!-- главное меню -->
-  <nav>
-    <ul>
-      <li><a href="index.html">Главная</a></li>
-      <li><a href="blog.html">Блог</a></li>
-    </ul>
-  </nav>
+  <header class="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo">Name-folio</a>
+      <ul class="nav__list">
+        <li><a href="index.html" class="nav__link">About me</a></li>
+        <li><a href="blog.html" class="nav__link nav__link--active">Blog</a></li>
+        <li><a href="contacts.html" class="nav__link">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
+  <main>
 
+    <!-- заголовок блога + большая карточка -->
+    <section class="blog-hero container">
+      <div class="blog-hero__top">
+        <div>
+          <h1 class="blog-hero__title">My blogs</h1>
+          <p class="blog-hero__sub">Lorem occaecat proident excepteur commodo at nulla elusmod. Elit esse aute officia dolor elit aute</p>
+        </div>
+        <!-- вращающийся бейдж -->
+        <div style="position: relative; flex-shrink: 0;">
+          <svg class="blog-badge" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+            <path id="blog-badge-path" d="M55,55 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" fill="none"/>
+            <text><textPath href="#blog-badge-path">MY BLOGS • MY BLOGS • MY BLOGS •</textPath></text>
+          </svg>
+          <span class="blog-badge-arrow">↓</span>
+        </div>
+      </div>
 
-  <!-- секция статьи -->
-  <section>
-    <h1>Статьи</h1>
+      <!-- главная карточка -->
+      <article class="blog-featured">
+        <div class="blog-featured__img">
+          <img src="images/blog-main.jpg" alt="Featured post" />
+        </div>
+        <div class="blog-featured__text">
+          <h2 class="blog-featured__title">Minim anim pariatur magna duis sit et dolor inci</h2>
+          <p class="blog-featured__desc">Sint occaecat deserunt aliquo do occaecat ut quis. Cupidatat magna fugiat quis sit duis est in volup</p>
+          <span class="blog-featured__date">Oct 16, 2025</span>
+        </div>
+      </article>
+    </section>
 
-    <article>
-      <h2>Как создать адаптивный дизайн за 30 минут</h2>
-      <p><em>Опубликовано: 15 декабря 2024</em></p>
-      <p>В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов, которые одинаково хорошо выглядят
-        на всех устройствах. Вы узнаете о медиа-запросах, гибких сетках и практических примерах кода, которые можно
-        использовать прямо сейчас.</p>
-    </article>
+    <!-- сетка карточек -->
+    <!-- при ширине меньше 800px переходит в 1 колонку — задано в медиазапросе -->
+    <section class="blog-grid-section container">
+      <ul class="blog-grid">
+        <li class="blog-card">
+          <div class="blog-card__img"><img src="images/blog1.jpg" alt="Post 1" /></div>
+          <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+          <span class="blog-card__date">Oct 16, 2025</span>
+        </li>
+        <li class="blog-card">
+          <div class="blog-card__img"><img src="images/blog2.jpg" alt="Post 2" /></div>
+          <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+          <span class="blog-card__date">Oct 16, 2025</span>
+        </li>
+        <li class="blog-card">
+          <div class="blog-card__img"><img src="images/blog3.jpg" alt="Post 3" /></div>
+          <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+          <span class="blog-card__date">Oct 16, 2025</span>
+        </li>
+        <li class="blog-card">
+          <div class="blog-card__img"><img src="images/blog4.jpg" alt="Post 4" /></div>
+          <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+          <span class="blog-card__date">Oct 16, 2025</span>
+        </li>
+        <li class="blog-card">
+          <div class="blog-card__img"><img src="images/blog5.jpg" alt="Post 5" /></div>
+          <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+          <span class="blog-card__date">Oct 16, 2025</span>
+        </li>
+        <li class="blog-card">
+          <div class="blog-card__img"><img src="images/blog6.jpg" alt="Post 6" /></div>
+          <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+          <span class="blog-card__date">Oct 16, 2025</span>
+        </li>
+      </ul>
+      <div class="pagination">
+        <a href="#" class="btn-outline">Next →</a>
+      </div>
+    </section>
 
-
-    <article>
-      <h2>Как создать адаптивный дизайн за 30 минут</h2>
-      <p><em>Опубликовано: 15 декабря 2024</em></p>
-      <p>В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов, которые одинаково хорошо выглядят
-        на всех устройствах. Вы узнаете о медиа-запросах, гибких сетках и практических примерах кода, которые можно
-        использовать прямо сейчас.</p>
-    </article>
-
-
-
-    <article>
-      <h2>Как создать адаптивный дизайн за 30 минут</h2>
-      <p><em>Опубликовано: 15 декабря 2024</em></p>
-      <p>В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов, которые одинаково хорошо выглядят
-        на всех устройствах. Вы узнаете о медиа-запросах, гибких сетках и практических примерах кода, которые можно
-        использовать прямо сейчас.</p>
-    </article>
-
-
-    <article>
-      <h2>Как создать адаптивный дизайн за 30 минут</h2>
-      <p><em>Опубликовано: 15 декабря 2024</em></p>
-      <p>В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов, которые одинаково хорошо выглядят
-        на всех устройствах. Вы узнаете о медиа-запросах, гибких сетках и практических примерах кода, которые можно
-        использовать прямо сейчас.</p>
-    </article>
-
-
-
-    <article>
-      <h2>Как создать адаптивный дизайн за 30 минут</h2>
-      <p><em>Опубликовано: 15 декабря 2024</em></p>
-      <p>В этой статье я расскажу о ключевых принципах создания мобильных интерфейсов, которые одинаково хорошо выглядят
-        на всех устройствах. Вы узнаете о медиа-запросах, гибких сетках и практических примерах кода, которые можно
-        использовать прямо сейчас.</p>
-    </article>
-
-  </section>
-  <!-- секция создать статью -->
-  <section>
-    <h2>Создать статью</h2>
-    <form>
-      <p><input type="text" name="title" placeholder="Заголовок" size="50"></p>
-      <p><textarea name="content" placeholder="Текст статьи" rows="6" cols="50"></textarea></p>
-      <p>
-        <label>Картинка</label>
-        <input type="file" name="image">
-      </p>
-      <p><button type="submit">Добавить</button></p>
-    </form>
-  </section>
-
+  </main>
 
   <!-- футер -->
-  <footer>
-    <h3>Контакты</h3>
-    <p>Email: <a href="mailto:alex@creativeblog.ru">alex@creativeblog.ru</a></p>
-    <p>Телефон: +7 (999) 123-45-67</p>
-    <p>
-      Социальные сети:
-      <a href="#">Instagram</a> |
-      <a href="#">Twitter</a> |
-      <a href="#">LinkedIn</a> |
-      <a href="#">GitHub</a>
-    </p>
+  <footer class="footer">
+    <div class="footer__inner container">
+      <div class="footer__left">
+        <h2 class="footer__title">Say hello and let's<br>work together!</h2>
+        <div class="footer__contacts">
+          <p>Email: <a href="mailto:alex@creativeblog.ru">alex@creativeblog.ru</a></p>
+          <p>Phone: <a href="tel:+70001234567">+7 (000) 123-45-67</a></p>
+        </div>
+        <div class="footer__socials">
+          <a href="https://vk.com" target="_blank" class="footer__social" title="ВКонтакте">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.525-2.049-1.714-1.033-1-1.49-.9-1.49.217v1.498c0 .387-.124.617-1.14.617-1.683 0-3.55-1.018-4.862-2.913C6.05 12.196 5.5 9.834 5.5 9.834c0-.387.124-.617.617-.617h1.744c.458 0 .633.21.81.703.893 2.576 2.387 4.836 3.003 4.836.232 0 .34-.107.34-.695V11.48c-.07-1.248-.73-1.354-.73-1.798 0-.232.19-.463.494-.463h2.744c.387 0 .525.21.525.665v3.577c0 .387.17.525.277.525.232 0 .425-.138.85-.563 1.32-1.477 2.261-3.753 2.261-3.753.124-.387.387-.617.844-.617h1.744c.525 0 .64.27.525.657-.217 1.018-2.33 3.99-2.33 3.99-.194.31-.263.449 0 .8.194.263.832.81 1.258 1.3.78.895 1.374 1.644 1.537 2.163.17.516-.107.78-.617.78z"/></svg>
+          </a>
+          <a href="https://t.me" target="_blank" class="footer__social" title="Telegram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.19 13.981l-2.965-.924c-.644-.204-.657-.644.136-.953l11.57-4.461c.537-.194 1.006.131.963.578z"/></svg>
+          </a>
+          <a href="https://github.com" target="_blank" class="footer__social" title="GitHub">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        </div>
+        <p class="footer__copy">© 2025 Brand, Inc.</p>
+      </div>
+      <div class="footer__right">
+        <form class="form" onsubmit="return false;">
+          <div class="form__group">
+            <label class="form__label" for="footer-email">Email</label>
+            <input class="form__input" type="email" id="footer-email" placeholder="Your email address" />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="footer-msg">Input your message</label>
+            <textarea class="form__textarea" id="footer-msg" rows="4" placeholder="Describe your project"></textarea>
+          </div>
+          <button class="form__btn" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
   </footer>
 
 </body>
-
 </html>
