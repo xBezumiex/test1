@@ -1,23 +1,10 @@
-/* ============================================================
-   Подключение шрифта Inter (из макета)
-   ============================================================ */
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-
-/* ============================================================
-   Глобальные настройки
-   ============================================================ */
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
-/* ============================================================
-   CSS-переменные — цвета и отступы
-   ============================================================ */
 
 :root {
   --color-black:      #111111;
@@ -32,11 +19,6 @@
   --color-dark:       #111111;
 }
 
-
-/* ============================================================
-   Стилизация текста — шрифт, размер, толщина (без цвета)
-   ============================================================ */
-
 body {
   font-family: 'Inter', sans-serif;
   font-size: 15px;
@@ -46,21 +28,9 @@ body {
   background-color: var(--color-white);
 }
 
-h1 {
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-h2 {
-  font-size: 28px;
-  font-weight: 700;
-}
-
-h3 {
-  font-size: 18px;
-  font-weight: 600;
-}
+h1 { font-size: 40px; font-weight: 700; line-height: 1.2; }
+h2 { font-size: 28px; font-weight: 700; }
+h3 { font-size: 18px; font-weight: 600; }
 
 p {
   font-size: 14px;
@@ -68,23 +38,13 @@ p {
   line-height: 1.7;
 }
 
-a {
-  text-decoration: none;
-}
-
-ul {
-  list-style: none;
-}
+a { text-decoration: none; }
+ul { list-style: none; }
 
 img {
   display: block;
   max-width: 100%;
 }
-
-
-/* ============================================================
-   Общий контейнер
-   ============================================================ */
 
 .container {
   max-width: 1100px;
@@ -92,11 +52,26 @@ img {
   padding: 0 48px;
 }
 
+/* кнопка с обводкой */
+.btn-outline {
+  display: inline-block;
+  padding: 9px 22px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-black);
+  border: 1px solid var(--color-black);
+  border-radius: 20px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
 
-/* ============================================================
-   Шапка и меню
-   ============================================================ */
+.btn-outline:hover {
+  background: var(--color-black);
+  color: var(--color-white);
+}
 
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 .header {
   position: sticky;
   top: 0;
@@ -127,11 +102,9 @@ img {
   font-size: 14px;
   font-weight: 400;
   color: var(--color-gray);
-  /* плавность при наведении */
   transition: color 0.25s ease, font-weight 0.2s ease;
 }
 
-/* при наведении — жирный шрифт */
 .nav__link:hover {
   font-weight: 700;
   color: var(--color-black);
@@ -141,12 +114,131 @@ img {
   font-weight: 700;
   color: var(--color-black);
 }
+.footer {
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: 72px 0;
+}
 
+.footer__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: start;
+}
 
-/* ============================================================
-   Секция Hero
-   ============================================================ */
+.footer__title {
+  color: var(--color-white);
+  margin-bottom: 24px;
+}
 
+.footer__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #aaaaaa;
+  margin-bottom: 20px;
+}
+
+.footer__contacts a {
+  color: var(--color-green);
+  transition: color 0.25s ease;
+}
+
+.footer__contacts a:hover {
+  color: #3d9440;
+}
+
+.footer__socials {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.footer__social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #333333;
+  color: #aaaaaa;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.footer__social:hover {
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+
+.footer__copy {
+  font-size: 12px;
+  color: #555555;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form__label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #cccccc;
+}
+
+.form__input,
+.form__textarea {
+  background: transparent;
+  border: 1px solid #333333;
+  border-radius: 4px;
+  padding: 10px 14px;
+  /* исправлено: font-family: inherit вместо повторения */
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--color-white);
+  outline: none;
+  resize: none;
+  transition: border-color 0.25s ease;
+}
+
+.form__input::placeholder,
+.form__textarea::placeholder {
+  color: #555555;
+}
+
+.form__input:focus,
+.form__textarea:focus {
+  border-color: var(--color-green);
+}
+
+.form__btn {
+  align-self: flex-start;
+  padding: 10px 28px;
+  /* исправлено: font-family: inherit */
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-white);
+  background: var(--color-green);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.form__btn:hover {
+  background: #3d9440;
+}
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -179,7 +271,6 @@ img {
   border-color: var(--color-green);
 }
 
-/* Круглая фотография */
 .hero__photo-wrap {
   position: relative;
   display: flex;
@@ -204,11 +295,14 @@ img {
   object-fit: cover;
 }
 
-/* Вращающийся бейдж */
-.hero__badge {
+/* исправлено: убран position, позиционирование перенесено на контейнер */
+.hero__badge-wrap {
   position: absolute;
   top: -10px;
   right: 20px;
+}
+
+.hero__badge {
   width: 110px;
   height: 110px;
   animation: spin 12s linear infinite;
@@ -216,28 +310,19 @@ img {
 
 .hero__badge text {
   font-size: 10px;
-  font-family: 'Inter', sans-serif;
+  font-family: inherit;
   fill: var(--color-black);
   letter-spacing: 3px;
 }
 
+/* исправлено: центрирование через calc */
 .hero__badge-arrow {
   position: absolute;
-  top: 40px;
-  right: 72px;
+  top: calc(50% - 14px);
+  right: calc(50% - 8px);
   font-size: 18px;
   pointer-events: none;
 }
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-
-/* ============================================================
-   Featured posts (статьи на главной)
-   ============================================================ */
-
 .featured {
   padding: 48px 0;
   border-top: 1px solid var(--color-border);
@@ -254,7 +339,6 @@ img {
   margin-bottom: 24px;
 }
 
-/* Стилизация списка статей */
 .featured__list {
   display: flex;
   flex-direction: column;
@@ -262,7 +346,6 @@ img {
   margin-bottom: 24px;
 }
 
-/* Карточка статьи — сетка, скругление, отступы */
 .featured__item {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -277,14 +360,8 @@ img {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* Цвет фона через псевдоклассы */
-.featured__item:nth-child(odd) {
-  background-color: var(--color-bg-peach);
-}
-
-.featured__item:nth-child(even) {
-  background-color: var(--color-bg-mint);
-}
+.featured__item:nth-child(odd)  { background-color: var(--color-bg-peach); }
+.featured__item:nth-child(even) { background-color: var(--color-bg-mint); }
 
 .featured__info {
   padding: 36px 32px;
@@ -327,38 +404,10 @@ img {
   object-fit: cover;
 }
 
-/* Прототипная картинка через псевдоэлемент если img нет */
 .featured__img-wrap:not(:has(img))::after {
   content: '🖼';
   font-size: 48px;
 }
-
-
-/* ============================================================
-   Кнопка с обводкой
-   ============================================================ */
-
-.btn-outline {
-  display: inline-block;
-  padding: 9px 22px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--color-black);
-  border: 1px solid var(--color-black);
-  border-radius: 20px;
-  transition: background 0.25s ease, color 0.25s ease;
-}
-
-.btn-outline:hover {
-  background: var(--color-black);
-  color: var(--color-white);
-}
-
-
-/* ============================================================
-   My Skills
-   ============================================================ */
-
 .skills {
   padding: 48px 0;
   border-top: 1px solid var(--color-border);
@@ -369,37 +418,19 @@ img {
   margin-bottom: 24px;
 }
 
-/* Список навыков — flex, слова в ряд */
 .skills__list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px 64px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
 }
 
 .skills__item {
   font-size: 15px;
   font-weight: 500;
   color: var(--color-black);
-  position: relative;
-  padding-bottom: 8px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border);
 }
-
-/* Черта под навыком через псевдоэлемент */
-.skills__item::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--color-black);
-}
-
-
-/* ============================================================
-   My Work
-   ============================================================ */
-
 .work {
   padding: 48px 0;
   border-top: 1px solid var(--color-border);
@@ -419,7 +450,6 @@ img {
   color: var(--color-gray-light);
 }
 
-/* Список опыта */
 .work__list {
   display: flex;
   flex-direction: column;
@@ -433,7 +463,6 @@ img {
   position: relative;
 }
 
-/* Декоративная полоса под каждым пунктом через псевдоэлемент */
 .work__item::after {
   content: '';
   position: absolute;
@@ -444,18 +473,12 @@ img {
   background: var(--color-border);
 }
 
-.work__item:last-child::after {
-  display: none;
-}
+.work__item:last-child::after { display: none; }
 
 .work__logo {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
   flex-shrink: 0;
 }
 
@@ -482,12 +505,6 @@ img {
   font-size: 13px;
   color: var(--color-gray);
 }
-
-
-/* ============================================================
-   Hobby projects
-   ============================================================ */
-
 .hobby {
   padding: 48px 0;
   border-top: 1px solid var(--color-border);
@@ -504,10 +521,11 @@ img {
   margin-bottom: 24px;
 }
 
-/* Сетка: левая колонка высокая (2 ряда), правая — 3 карточки */
+/* исправлено: 4 колонки как рекомендовал преподаватель */
 .hobby__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
   gap: 12px;
 }
 
@@ -520,10 +538,25 @@ img {
   cursor: pointer;
 }
 
-/* Первая карточка — высокая, занимает 2 ряда */
+/* первая карточка — высокая, занимает 1 колонку и 2 строки */
 .hobby__card:first-child {
+  grid-column: span 1;
   grid-row: span 2;
   min-height: 380px;
+}
+
+/* вторая карточка — высокая, занимает 1 колонку и 2 строки */
+.hobby__card:nth-child(2) {
+  grid-column: span 1;
+  grid-row: span 2;
+  min-height: 380px;
+}
+
+/* 3-я и 4-я — маленькие справа */
+.hobby__card:nth-child(3),
+.hobby__card:nth-child(4) {
+  grid-column: span 2;
+  min-height: 180px;
 }
 
 .hobby__card img {
@@ -538,7 +571,6 @@ img {
   transform: scale(1.05);
 }
 
-/* Текст поверх картинки — скрыт по умолчанию */
 .hobby__overlay {
   position: absolute;
   inset: 0;
@@ -550,11 +582,9 @@ img {
   gap: 8px;
   padding: 24px;
   opacity: 0;
-  /* Анимация: плавно появляется при наведении */
   transition: opacity 0.35s ease;
 }
 
-/* Показываем текст при наведении */
 .hobby__card:hover .hobby__overlay {
   opacity: 1;
 }
@@ -571,147 +601,6 @@ img {
   color: rgba(255, 255, 255, 0.8);
   text-align: center;
 }
-
-
-/* ============================================================
-   Footer / Контакты
-   ============================================================ */
-
-.footer {
-  background: var(--color-dark);
-  color: var(--color-white);
-  padding: 72px 0;
-}
-
-.footer__inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 72px;
-  align-items: start;
-}
-
-.footer__title {
-  color: var(--color-white);
-  margin-bottom: 24px;
-}
-
-.footer__contacts {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 13px;
-  color: #aaaaaa;
-  margin-bottom: 20px;
-}
-
-.footer__contacts a {
-  color: var(--color-green);
-  transition: color 0.25s ease;
-}
-
-.footer__contacts a:hover {
-  color: #3d9440;
-}
-
-/* Социальные иконки */
-.footer__socials {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.footer__social {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1px solid #333333;
-  color: #aaaaaa;
-  transition: border-color 0.25s ease, color 0.25s ease;
-}
-
-.footer__social:hover {
-  border-color: var(--color-green);
-  color: var(--color-green);
-}
-
-.footer__copy {
-  font-size: 12px;
-  color: #555555;
-}
-
-
-/* ============================================================
-   Форма обратной связи
-   ============================================================ */
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.form__group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form__label {
-  font-size: 12px;
-  font-weight: 500;
-  color: #cccccc;
-}
-
-.form__input,
-.form__textarea {
-  background: transparent;
-  border: 1px solid #333333;
-  border-radius: 4px;
-  padding: 10px 14px;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  color: var(--color-white);
-  outline: none;
-  resize: none;
-  transition: border-color 0.25s ease;
-}
-
-.form__input::placeholder,
-.form__textarea::placeholder {
-  color: #555555;
-}
-
-.form__input:focus,
-.form__textarea:focus {
-  border-color: var(--color-green);
-}
-
-.form__btn {
-  align-self: flex-start;
-  padding: 10px 28px;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-white);
-  background: var(--color-green);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.25s ease;
-}
-
-.form__btn:hover {
-  background: #3d9440;
-}
-
-
-/* ============================================================
-   Страница Блог
-   ============================================================ */
-
 .blog-hero {
   padding: 48px 0 32px;
 }
@@ -735,32 +624,36 @@ img {
   max-width: 500px;
 }
 
-/* Вращающийся бейдж на странице блога */
-.blog-badge {
+/* исправлено: контейнер с position: absolute, убраны позиционирование с анимации */
+.blog-badge-wrap {
   position: relative;
+  flex-shrink: 0;
   width: 110px;
   height: 110px;
-  flex-shrink: 0;
+}
+
+.blog-badge {
+  width: 110px;
+  height: 110px;
   animation: spin 12s linear infinite;
 }
 
 .blog-badge text {
   font-size: 10px;
-  font-family: 'Inter', sans-serif;
+  font-family: inherit;
   fill: var(--color-black);
   letter-spacing: 3px;
 }
 
+/* исправлено: центрирование через calc */
 .blog-badge-arrow {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: calc(50% - 14px);
+  right: calc(50% - 8px);
   font-size: 18px;
   pointer-events: none;
 }
 
-/* Главная карточка блога */
 .blog-featured {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -781,7 +674,6 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 48px;
   overflow: hidden;
 }
 
@@ -813,7 +705,6 @@ img {
   color: var(--color-gray-light);
 }
 
-/* Сетка карточек блога */
 .blog-grid-section {
   padding: 40px 0 72px;
 }
@@ -842,7 +733,6 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 36px;
   margin-bottom: 12px;
 }
 
@@ -869,85 +759,6 @@ img {
   display: flex;
   justify-content: center;
 }
-
-
-/* ============================================================
-   Адаптивность
-   ============================================================ */
-
-/* Блог: при ширине меньше 800px — карточки в 1 колонку */
-@media (max-width: 800px) {
-  .blog-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 0 20px;
-  }
-
-  /* Hero — 1 колонка */
-  .hero {
-    grid-template-columns: 1fr;
-    padding: 40px 0;
-    text-align: center;
-  }
-
-  .hero__photo-wrap {
-    order: -1;
-  }
-
-  .hero__circle {
-    width: 220px;
-    height: 220px;
-  }
-
-  /* Статьи — 1 колонка */
-  .featured__item {
-    grid-template-columns: 1fr;
-  }
-
-  /* Work — 1 колонка */
-  .work {
-    grid-template-columns: 1fr;
-  }
-
-  /* Hobby — 1 колонка */
-  .hobby__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hobby__card:first-child {
-    grid-row: span 1;
-    min-height: 220px;
-  }
-
-  /* Footer — 1 колонка */
-  .footer__inner {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-
-  /* Блог hero */
-  .blog-hero__top {
-    flex-direction: column;
-  }
-
-  .blog-featured {
-    grid-template-columns: 1fr;
-  }
-
-  .nav__list {
-    gap: 20px;
-  }
-}
-
-
-/* ============================================================
-   Страница Contact
-   ============================================================ */
-
 .contact-page {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -967,7 +778,6 @@ img {
   max-width: 400px;
 }
 
-/* список с контактными данными */
 .contact-info {
   display: flex;
   flex-direction: column;
@@ -982,7 +792,6 @@ img {
   position: relative;
 }
 
-/* разделитель между пунктами через ::after */
 .contact-info__item::after {
   content: '';
   position: absolute;
@@ -993,9 +802,7 @@ img {
   background: var(--color-border);
 }
 
-.contact-info__item:last-child::after {
-  display: none;
-}
+.contact-info__item:last-child::after { display: none; }
 
 .contact-info__label {
   font-size: 12px;
@@ -1019,7 +826,6 @@ a.contact-info__value:hover {
   color: var(--color-green);
 }
 
-/* соцсети на странице контактов — с подписью */
 .contact-socials {
   display: flex;
   flex-direction: column;
@@ -1040,7 +846,6 @@ a.contact-info__value:hover {
   color: var(--color-green);
 }
 
-/* форма на странице контактов — светлая */
 .form__label--dark {
   font-size: 12px;
   font-weight: 500;
@@ -1053,7 +858,7 @@ a.contact-info__value:hover {
   border: 1px solid var(--color-border);
   border-radius: 4px;
   padding: 10px 14px;
-  font-family: 'Inter', sans-serif;
+  font-family: inherit;
   font-size: 13px;
   color: var(--color-black);
   outline: none;
@@ -1073,7 +878,7 @@ a.contact-info__value:hover {
 .contact-form__btn {
   margin-top: 8px;
   padding: 12px 32px;
-  font-family: 'Inter', sans-serif;
+  font-family: inherit;
   font-size: 14px;
   font-weight: 600;
   color: var(--color-white);
@@ -1087,9 +892,56 @@ a.contact-info__value:hover {
 .contact-form__btn:hover {
   background: var(--color-green);
 }
+@media (max-width: 800px) {
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
-/* адаптивность страницы контактов */
 @media (max-width: 768px) {
+  .container { padding: 0 20px; }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 40px 0;
+    text-align: center;
+  }
+
+  .hero__photo-wrap { order: -1; }
+
+  .hero__circle {
+    width: 220px;
+    height: 220px;
+  }
+
+  .featured__item { grid-template-columns: 1fr; }
+
+  .work { grid-template-columns: 1fr; }
+
+  .hobby__grid { grid-template-columns: 1fr; }
+
+  .hobby__card:first-child {
+    grid-column: span 1;
+    grid-row: span 1;
+    min-height: 220px;
+  }
+
+  .hobby__card:nth-child(2),
+  .hobby__card:nth-child(3) {
+    grid-column: span 1;
+  }
+
+  .footer__inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .blog-hero__top { flex-direction: column; }
+
+  .blog-featured { grid-template-columns: 1fr; }
+
+  .nav__list { gap: 20px; }
+
   .contact-page {
     grid-template-columns: 1fr;
     gap: 48px;

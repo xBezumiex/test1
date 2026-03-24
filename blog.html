@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Name-folio — Blog</title>
-  <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css" />  
+  
 </head>
 <body>
 
@@ -21,15 +22,14 @@
 
   <main>
 
-    <!-- заголовок блога + большая карточка -->
     <section class="blog-hero container">
       <div class="blog-hero__top">
         <div>
           <h1 class="blog-hero__title">My blogs</h1>
           <p class="blog-hero__sub">Lorem occaecat proident excepteur commodo at nulla elusmod. Elit esse aute officia dolor elit aute</p>
         </div>
-        <!-- вращающийся бейдж -->
-        <div style="position: relative; flex-shrink: 0;">
+        <!-- исправлено: убран inline-style, добавлен класс blog-badge-wrap -->
+        <div class="blog-badge-wrap">
           <svg class="blog-badge" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
             <path id="blog-badge-path" d="M55,55 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" fill="none"/>
             <text><textPath href="#blog-badge-path">MY BLOGS • MY BLOGS • MY BLOGS •</textPath></text>
@@ -38,10 +38,9 @@
         </div>
       </div>
 
-      <!-- главная карточка -->
       <article class="blog-featured">
         <div class="blog-featured__img">
-          <img src="images/blog-main.jpg" alt="Featured post" />
+          <img src="img/image 2.png" alt="Featured post" />
         </div>
         <div class="blog-featured__text">
           <h2 class="blog-featured__title">Minim anim pariatur magna duis sit et dolor inci</h2>
@@ -51,37 +50,35 @@
       </article>
     </section>
 
-    <!-- сетка карточек -->
-    <!-- при ширине меньше 800px переходит в 1 колонку — задано в медиазапросе -->
     <section class="blog-grid-section container">
       <ul class="blog-grid">
         <li class="blog-card">
-          <div class="blog-card__img"><img src="images/blog1.jpg" alt="Post 1" /></div>
+          <div class="blog-card__img"><img src="img/photo_2026-03-05_12-14-57.jpg" alt="Post 1" /></div>
           <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
           <span class="blog-card__date">Oct 16, 2025</span>
         </li>
         <li class="blog-card">
-          <div class="blog-card__img"><img src="images/blog2.jpg" alt="Post 2" /></div>
+          <div class="blog-card__img"><img src="img/image 2.png" alt="Post 2" /></div>
           <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
           <span class="blog-card__date">Oct 16, 2025</span>
         </li>
         <li class="blog-card">
-          <div class="blog-card__img"><img src="images/blog3.jpg" alt="Post 3" /></div>
+          <div class="blog-card__img"><img src="img/Selection (3) 1.png" alt="Post 3" /></div>
           <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
           <span class="blog-card__date">Oct 16, 2025</span>
         </li>
         <li class="blog-card">
-          <div class="blog-card__img"><img src="images/blog4.jpg" alt="Post 4" /></div>
+          <div class="blog-card__img"><img src="img/photo_2026-03-05_12-14-57.jpg" alt="Post 4" /></div>
           <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
           <span class="blog-card__date">Oct 16, 2025</span>
         </li>
         <li class="blog-card">
-          <div class="blog-card__img"><img src="images/blog5.jpg" alt="Post 5" /></div>
+          <div class="blog-card__img"><img src="img/image 2.png" alt="Post 5" /></div>
           <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
           <span class="blog-card__date">Oct 16, 2025</span>
         </li>
         <li class="blog-card">
-          <div class="blog-card__img"><img src="images/blog6.jpg" alt="Post 6" /></div>
+          <div class="blog-card__img"><img src="img/Selection (3) 1.png" alt="Post 6" /></div>
           <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
           <span class="blog-card__date">Oct 16, 2025</span>
         </li>
@@ -93,7 +90,6 @@
 
   </main>
 
-  <!-- футер -->
   <footer class="footer">
     <div class="footer__inner container">
       <div class="footer__left">
