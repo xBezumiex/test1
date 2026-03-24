@@ -789,6 +789,7 @@ img {
 
 
 
+
     .page-layout {
       display: flex;
       min-height: calc(100vh - 64px);
@@ -1008,6 +1009,35 @@ img {
       font-weight: 700;
       color: var(--color-black);
     }
+
+    /* Крестик удаления */
+    .blog-card {
+      position: relative;
+    }
+
+    .blog-card__delete {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--color-black);
+      color: var(--color-white);
+      border: none;
+      cursor: pointer;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 2;
+      line-height: 1;
+    }
+
+    .blog-card:hover .blog-card__delete { opacity: 1; }
+
   
 
 /* =============================================

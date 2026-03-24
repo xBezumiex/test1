@@ -1,22 +1,26 @@
 // ===== ЭЛЕМЕНТЫ =====
-const btnCreate      = document.getElementById('btnCreate');
-const btnStats       = document.getElementById('btnStats');
+const btnCreate       = document.getElementById('btnCreate');
+const btnStats        = document.getElementById('btnStats');
 const articleFormWrap = document.getElementById('articleFormWrap');
-const btnSave        = document.getElementById('btnSave');
-const btnCancel      = document.getElementById('btnCancel');
-const statsDialog    = document.getElementById('statsDialog');
-const statsClose     = document.getElementById('statsClose');
-const statsPostCount = document.getElementById('statsPostCount');
-const blogGrid       = document.getElementById('blogGrid');
-const cardTemplate   = document.getElementById('cardTemplate');
+const articleTitle    = document.getElementById('articleTitle');
+const articleText     = document.getElementById('articleText');
+const btnSave         = document.getElementById('btnSave');
+const btnCancel       = document.getElementById('btnCancel');
+const statsDialog     = document.getElementById('statsDialog');
+const statsClose      = document.getElementById('statsClose');
+const statsPostCount  = document.getElementById('statsPostCount');
+const blogGrid        = document.getElementById('blogGrid');
+const cardTemplate    = document.getElementById('cardTemplate');
 
-// ===== ПОКАЗАТЬ / СКРЫТЬ ФОРМУ =====
+// ===== ПОКАЗАТЬ ФОРМУ =====
 btnCreate.addEventListener('click', () => {
   articleFormWrap.classList.toggle('is-open');
 });
 
-// ===== ОТМЕНА — скрыть форму =====
+// ===== ОТМЕНА — очистить и скрыть форму =====
 btnCancel.addEventListener('click', () => {
+  articleTitle.value = '';
+  articleText.value = '';
   articleFormWrap.classList.remove('is-open');
 });
 
@@ -31,43 +35,70 @@ btnStats.addEventListener('click', () => {
   statsDialog.showModal();
 });
 
-// Закрытие по крестику
-statsClose.addEventListener('click', () => {
-  statsDialog.close();
-});
+statsClose.addEventListener('click', () => statsDialog.close());
 
-// Закрытие по клику вне диалога
 statsDialog.addEventListener('click', (e) => {
-  if (e.target === statsDialog) {
-    statsDialog.close();
-  }
+  if (e.target === statsDialog) statsDialog.close();
 });
 
-// ===== ДОБАВИТЬ ПОСТ (mock-данные) =====
-function addPost(title, text, date) {
-  const template = cardTemplate.content.cloneNode(true);
-  template.querySelector('.blog-card__title').textContent = title;
-  template.querySelector('.blog-card__date').textContent = date;
-  // картинка-заглушка
-  const imgWrap = template.querySelector('.blog-card__img');
-  imgWrap.style.cssText = 'display:flex;align-items:center;justify-content:center;font-size:36px;';
-  imgWrap.textContent = '🖼';
-  blogGrid.prepend(template);
+// ===== УДАЛЕНИЕ ПОСТА =====
+function attachDeleteHandler(card) {
+  const deleteBtn = card.querySelector('.blog-card__delete');
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', () => {
+      card.remove();
+    });
+  }
 }
 
-// Запускаем добавление с mock-данными при загрузке
-addPost(
-  'New mock article title here',
-  'Mock text for the article body',
-  'Mar 24, 2026'
-);
+// Навесить обработчики на существующие карточки
+blogGrid.querySelectorAll('.blog-card').forEach(attachDeleteHandler);
 
-// ===== СОХРАНИТЬ — добавить пост из формы (lesson 5 — просто mock) =====
+// ===== ДОБАВИТЬ ПОСТ =====
+function addPost(title, text) {
+  const template = cardTemplate.content.cloneNode(true);
+  const card = template.querySelector('.blog-card');
+
+  card.querySelector('.blog-card__title').textContent = title;
+  card.querySelector('.blog-card__date').textContent = new Date().toLocaleDateString('en-US', {
+    month: 'short', day: 'numeric', year: 'numeric'
+  });
+
+  // Заглушка картинки
+  const imgWrap = card.querySelector('.blog-card__img');
+  imgWrap.style.cssText = 'display:flex;align-items:center;justify-content:center;font-size:36px;';
+  imgWrap.textContent = '🖼';
+
+  attachDeleteHandler(card);
+  blogGrid.prepend(card);
+}
+
+// ===== СОХРАНИТЬ — читаем данные из формы =====
 btnSave.addEventListener('click', () => {
-  addPost(
-    'New mock article title here',
-    'Mock text for the article body',
-    new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-  );
+  const title = articleTitle.value.trim();
+  const text  = articleText.value.trim();
+
+  // Валидация обязательных полей
+  if (!title) {
+    articleTitle.style.borderColor = 'red';
+    articleTitle.focus();
+    return;
+  }
+  if (!text) {
+    articleText.style.borderColor = 'red';
+    articleText.focus();
+    return;
+  }
+
+  // Сброс стилей ошибок
+  articleTitle.style.borderColor = '';
+  articleText.style.borderColor = '';
+
+  // Добавляем пост
+  addPost(title, text);
+
+  // Reset формы и скрыть
+  articleTitle.value = '';
+  articleText.value = '';
   articleFormWrap.classList.remove('is-open');
 });
