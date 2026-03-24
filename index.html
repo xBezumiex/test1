@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Name-folio</title>
-  <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css" />  
+
+
 </head>
 <body>
 
@@ -33,21 +35,21 @@
         <a href="#" class="hero__link">More about me →</a>
       </div>
       <div class="hero__photo-wrap">
-        <!-- круглое фото -->
         <div class="hero__circle">
           <img src="img/photo_2026-03-05_12-14-57.jpg" alt="Nelsom" />
         </div>
-        <!-- вращающийся текст вокруг фото -->
-        <svg class="hero__badge" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
-          <path id="badge-path" d="M55,55 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" fill="none"/>
-          <text><textPath href="#badge-path">MY BLOGS • MY BLOGS • MY BLOGS •</textPath></text>
-        </svg>
-        <span class="hero__badge-arrow">↓</span>
+        <!-- исправлено: убран inline-style, добавлен класс hero__badge-wrap -->
+        <div class="hero__badge-wrap">
+          <svg class="hero__badge" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+            <path id="badge-path" d="M55,55 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" fill="none"/>
+            <text><textPath href="#badge-path">MY BLOGS • MY BLOGS • MY BLOGS •</textPath></text>
+          </svg>
+          <span class="hero__badge-arrow">↓</span>
+        </div>
       </div>
     </section>
 
     <!-- избранные статьи -->
-    <!-- цвет фона карточек задаётся в css через :nth-child(odd/even) -->
     <section class="featured container">
       <h2 class="featured__title">Featured posts</h2>
       <p class="featured__sub">Sint occaecat deserunt aliquo do occaecat at quis</p>
@@ -60,7 +62,7 @@
             <p class="featured__desc">Sint occaecat deserunt aliquo do occaecat at quis. Cupidatat magna fugiat quis at dolé est in volup</p>
           </div>
           <div class="featured__img-wrap">
-            <img src="images/post1.jpg" alt="Paris secrets" />
+            <!-- <img src="img/image 2.png" alt="Paris secrets" /> -->
           </div>
         </li>
         <li class="featured__item">
@@ -70,7 +72,7 @@
             <p class="featured__desc">Sint occaecat deserunt aliquo do occaecat at quis. Cupidatat magna fugiat quis at dolé est in volup</p>
           </div>
           <div class="featured__img-wrap">
-            <img src="images/post2.jpg" alt="Oceanic feeling" />
+            <!-- <img src="img/Selection (3) 1.png" alt="Oceanic feeling" /> -->
           </div>
         </li>
       </ul>
@@ -79,7 +81,6 @@
     </section>
 
     <!-- навыки -->
-    <!-- черта под каждым пунктом сделана через псевдоэлемент ::after -->
     <section class="skills container">
       <h2 class="skills__title">My skills</h2>
       <ul class="skills__list">
@@ -93,8 +94,6 @@
     </section>
 
     <!-- опыт работы -->
-    <!-- слева заголовок, справа список — сделано через grid 1fr 2fr -->
-    <!-- разделительные полосы между пунктами — через ::after -->
     <section class="work container">
       <div class="work__left">
         <h2 class="work__title">My work</h2>
@@ -129,35 +128,33 @@
     </section>
 
     <!-- хобби-проекты -->
-    <!-- первая карточка высокая — grid-row: span 2 в css -->
-    <!-- при наведении текст поверх картинки плавно появляется через opacity + transition -->
     <section class="hobby container">
       <h2 class="hobby__title">Hobby projects</h2>
       <p class="hobby__sub">Duis nisi do exercitation in iure aliqua commodo nisi eu id reprehenderit dolore fugiat consectetur iure labore ad ea.</p>
       <div class="hobby__grid">
         <div class="hobby__card">
-          <img src="images/hobby1.jpg" alt="Portrait" />
+          <img src="img/mock img 1.png" alt="Portrait" />
           <div class="hobby__overlay">
             <span>Portrait series</span>
             <p>Captured in natural light</p>
           </div>
         </div>
         <div class="hobby__card">
-          <img src="images/hobby2.jpg" alt="Branding" />
+          <img src="img/mock img 2.png" alt="Branding" />
           <div class="hobby__overlay">
             <span>Branding</span>
             <p>Brand identity design</p>
           </div>
         </div>
         <div class="hobby__card">
-          <img src="images/hobby3.jpg" alt="Urban" />
+          <!-- <img src="img/Selection (3) 1.png" alt="Urban" /> -->
           <div class="hobby__overlay">
             <span>Urban shots</span>
             <p>City street photography</p>
           </div>
         </div>
         <div class="hobby__card">
-          <img src="images/hobby4.jpg" alt="Nature" />
+          <!-- <img src="img/photo_2026-03-05_12-14-57.jpg" alt="Nature" /> -->
           <div class="hobby__overlay">
             <span>Nature</span>
             <p>Landscapes &amp; wildlife</p>
@@ -168,7 +165,6 @@
 
   </main>
 
-  <!-- футер с формой обратной связи -->
   <footer class="footer">
     <div class="footer__inner container">
       <div class="footer__left">
