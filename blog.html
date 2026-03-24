@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Name-folio — Blog</title>
-    <link rel="stylesheet" href="style.css" />  
-  
+  <link rel="stylesheet" href="style.css" />
+
 </head>
 <body>
 
@@ -20,75 +20,137 @@
     </nav>
   </header>
 
-  <main>
+  <div class="page-layout">
 
-    <section class="blog-hero container">
-      <div class="blog-hero__top">
-        <div>
-          <h1 class="blog-hero__title">My blogs</h1>
-          <p class="blog-hero__sub">Lorem occaecat proident excepteur commodo at nulla elusmod. Elit esse aute officia dolor elit aute</p>
-        </div>
-        <!-- исправлено: убран inline-style, добавлен класс blog-badge-wrap -->
-        <div class="blog-badge-wrap">
-          <svg class="blog-badge" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
-            <path id="blog-badge-path" d="M55,55 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" fill="none"/>
-            <text><textPath href="#blog-badge-path">MY BLOGS • MY BLOGS • MY BLOGS •</textPath></text>
-          </svg>
-          <span class="blog-badge-arrow">↓</span>
+    <!-- САЙДБАР -->
+    <aside class="sidebar">
+      <button class="sidebar__btn" id="btnCreate" title="Создать статью">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+      </button>
+      <button class="sidebar__btn" id="btnStats" title="Показать статистику">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="12" width="4" height="9"/>
+          <rect x="10" y="7" width="4" height="14"/>
+          <rect x="17" y="3" width="4" height="18"/>
+        </svg>
+      </button>
+    </aside>
+
+    <div class="main-content">
+
+      <!-- ФОРМА (скрыта по умолчанию) -->
+      <div class="article-form-wrap" id="articleFormWrap">
+        <div class="article-form">
+          <p class="article-form__title">Новая статья</p>
+          <div class="article-form__group">
+            <label class="article-form__label" for="articleTitle">Заголовок *</label>
+            <input class="article-form__input" type="text" id="articleTitle" placeholder="Введите заголовок" required />
+          </div>
+          <div class="article-form__group">
+            <label class="article-form__label" for="articleText">Текст *</label>
+            <textarea class="article-form__textarea" id="articleText" placeholder="Введите текст статьи" required></textarea>
+          </div>
+          <div class="article-form__actions">
+            <button class="article-form__save" id="btnSave">Сохранить</button>
+            <button class="article-form__cancel" id="btnCancel">Отмена</button>
+          </div>
         </div>
       </div>
 
-      <article class="blog-featured">
-        <div class="blog-featured__img">
-          <img src="img/image 2.png" alt="Featured post" />
-        </div>
-        <div class="blog-featured__text">
-          <h2 class="blog-featured__title">Minim anim pariatur magna duis sit et dolor inci</h2>
-          <p class="blog-featured__desc">Sint occaecat deserunt aliquo do occaecat ut quis. Cupidatat magna fugiat quis sit duis est in volup</p>
-          <span class="blog-featured__date">Oct 16, 2025</span>
-        </div>
-      </article>
-    </section>
+      <main>
+        <section class="blog-hero container">
+          <div class="blog-hero__top">
+            <div>
+              <h1 class="blog-hero__title">My blogs</h1>
+              <p class="blog-hero__sub">Lorem occaecat proident excepteur commodo at nulla elusmod. Elit esse aute officia dolor elit aute</p>
+            </div>
+            <div class="blog-badge-wrap">
+              <svg class="blog-badge" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+                <path id="blog-badge-path" d="M55,55 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" fill="none"/>
+                <text><textPath href="#blog-badge-path">MY BLOGS • MY BLOGS • MY BLOGS •</textPath></text>
+              </svg>
+              <span class="blog-badge-arrow">↓</span>
+            </div>
+          </div>
+          <article class="blog-featured">
+            <div class="blog-featured__img">
+              <img src="img/image 2.png" alt="Featured post" />
+            </div>
+            <div class="blog-featured__text">
+              <h2 class="blog-featured__title">Minim anim pariatur magna duis sit et dolor inci</h2>
+              <p class="blog-featured__desc">Sint occaecat deserunt aliquo do occaecat ut quis. Cupidatat magna fugiat quis sit duis est in volup</p>
+              <span class="blog-featured__date">Oct 16, 2025</span>
+            </div>
+          </article>
+        </section>
 
-    <section class="blog-grid-section container">
-      <ul class="blog-grid">
-        <li class="blog-card">
-          <div class="blog-card__img"><img src="img/photo_2026-03-05_12-14-57.jpg" alt="Post 1" /></div>
-          <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
-          <span class="blog-card__date">Oct 16, 2025</span>
-        </li>
-        <li class="blog-card">
-          <div class="blog-card__img"><img src="img/image 2.png" alt="Post 2" /></div>
-          <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
-          <span class="blog-card__date">Oct 16, 2025</span>
-        </li>
-        <li class="blog-card">
-          <div class="blog-card__img"><img src="img/Selection (3) 1.png" alt="Post 3" /></div>
-          <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
-          <span class="blog-card__date">Oct 16, 2025</span>
-        </li>
-        <li class="blog-card">
-          <div class="blog-card__img"><img src="img/photo_2026-03-05_12-14-57.jpg" alt="Post 4" /></div>
-          <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
-          <span class="blog-card__date">Oct 16, 2025</span>
-        </li>
-        <li class="blog-card">
-          <div class="blog-card__img"><img src="img/image 2.png" alt="Post 5" /></div>
-          <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
-          <span class="blog-card__date">Oct 16, 2025</span>
-        </li>
-        <li class="blog-card">
-          <div class="blog-card__img"><img src="img/Selection (3) 1.png" alt="Post 6" /></div>
-          <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
-          <span class="blog-card__date">Oct 16, 2025</span>
-        </li>
-      </ul>
-      <div class="pagination">
-        <a href="#" class="btn-outline">Next →</a>
+        <section class="blog-grid-section container">
+          <ul class="blog-grid" id="blogGrid">
+            <li class="blog-card">
+              <div class="blog-card__img"><img src="img/photo_2026-03-05_12-14-57.jpg" alt="Post 1" /></div>
+              <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+              <span class="blog-card__date">Oct 16, 2025</span>
+            </li>
+            <li class="blog-card">
+              <div class="blog-card__img"><img src="img/image 2.png" alt="Post 2" /></div>
+              <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+              <span class="blog-card__date">Oct 16, 2025</span>
+            </li>
+            <li class="blog-card">
+              <div class="blog-card__img"><img src="img/Selection (3) 1.png" alt="Post 3" /></div>
+              <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+              <span class="blog-card__date">Oct 16, 2025</span>
+            </li>
+            <li class="blog-card">
+              <div class="blog-card__img"><img src="img/photo_2026-03-05_12-14-57.jpg" alt="Post 4" /></div>
+              <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+              <span class="blog-card__date">Oct 16, 2025</span>
+            </li>
+            <li class="blog-card">
+              <div class="blog-card__img"><img src="img/image 2.png" alt="Post 5" /></div>
+              <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+              <span class="blog-card__date">Oct 16, 2025</span>
+            </li>
+            <li class="blog-card">
+              <div class="blog-card__img"><img src="img/Selection (3) 1.png" alt="Post 6" /></div>
+              <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+              <span class="blog-card__date">Oct 16, 2025</span>
+            </li>
+          </ul>
+          <div class="pagination">
+            <a href="#" class="btn-outline">Next →</a>
+          </div>
+        </section>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- ДИАЛОГ СТАТИСТИКИ -->
+  <dialog class="stats-dialog" id="statsDialog">
+    <div class="stats-dialog__inner">
+      <div class="stats-dialog__header">
+        <span class="stats-dialog__title">Статистика страницы</span>
+        <button class="stats-dialog__close" id="statsClose">✕</button>
       </div>
-    </section>
+      <div class="stats-dialog__item">
+        <span class="stats-dialog__label">Количество постов</span>
+        <span class="stats-dialog__value" id="statsPostCount">0</span>
+      </div>
+    </div>
+  </dialog>
 
-  </main>
+  <!-- TEMPLATE ДЛЯ НОВОЙ КАРТОЧКИ -->
+  <template id="cardTemplate">
+    <li class="blog-card">
+      <div class="blog-card__img"></div>
+      <h3 class="blog-card__title"></h3>
+      <span class="blog-card__date"></span>
+    </li>
+  </template>
 
   <footer class="footer">
     <div class="footer__inner container">
@@ -127,5 +189,6 @@
     </div>
   </footer>
 
+  <script src="js_blog.js"></script>
 </body>
 </html>
