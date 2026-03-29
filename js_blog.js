@@ -186,5 +186,3 @@ btnSave.addEventListener('click', () => {
 
 // ===== ИНИЦИАЛИЗАЦИЯ =====
 loadPostsFromStorage();
-
-
