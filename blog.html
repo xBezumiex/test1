@@ -6,8 +6,6 @@
   <title>Name-folio — Blog</title>
   <link rel="stylesheet" href="style.css" />
 
-   
-
 </head>
 <body>
 
@@ -43,7 +41,7 @@
 
     <div class="main-content">
 
-      <!-- ФОРМА -->
+      <!-- ФОРМА (скрыта по умолчанию) -->
       <div class="article-form-wrap" id="articleFormWrap">
         <div class="article-form">
           <p class="article-form__title">Новая статья</p>
@@ -90,24 +88,44 @@
         </section>
 
         <section class="blog-grid-section container">
-
-          <!-- ЛОАДЕР -->
-          <div class="blog-loader" id="blogLoader">
-            <div class="blog-loader__dot"></div>
-            <div class="blog-loader__dot"></div>
-            <div class="blog-loader__dot"></div>
-          </div>
-
-          <!-- ПУСТОЕ СОСТОЯНИЕ -->
-          <div class="blog-empty" id="blogEmpty">
-            <div class="blog-empty__icon">📝</div>
-            <p class="blog-empty__title">Статей пока нет</p>
-            <p class="blog-empty__text">Нажмите «+» в боковой панели, чтобы создать первую статью</p>
-          </div>
-
-          <!-- СЕТКА СТАТЕЙ (без статичных карточек) -->
-          <ul class="blog-grid" id="blogGrid"></ul>
-
+          <ul class="blog-grid" id="blogGrid">
+            <li class="blog-card">
+              <button class="blog-card__delete" title="Удалить">✕</button>
+              <div class="blog-card__img"><img src="img/photo_2026-03-05_12-14-57.jpg" alt="Post 1" /></div>
+              <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+              <span class="blog-card__date">Oct 16, 2025</span>
+            </li>
+            <li class="blog-card">
+              <button class="blog-card__delete" title="Удалить">✕</button>
+              <div class="blog-card__img"><img src="img/image 2.png" alt="Post 2" /></div>
+              <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+              <span class="blog-card__date">Oct 16, 2025</span>
+            </li>
+            <li class="blog-card">
+              <button class="blog-card__delete" title="Удалить">✕</button>
+              <div class="blog-card__img"><img src="img/Selection (3) 1.png" alt="Post 3" /></div>
+              <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+              <span class="blog-card__date">Oct 16, 2025</span>
+            </li>
+            <li class="blog-card">
+              <button class="blog-card__delete" title="Удалить">✕</button>
+              <div class="blog-card__img"><img src="img/photo_2026-03-05_12-14-57.jpg" alt="Post 4" /></div>
+              <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+              <span class="blog-card__date">Oct 16, 2025</span>
+            </li>
+            <li class="blog-card">
+              <button class="blog-card__delete" title="Удалить">✕</button>
+              <div class="blog-card__img"><img src="img/image 2.png" alt="Post 5" /></div>
+              <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+              <span class="blog-card__date">Oct 16, 2025</span>
+            </li>
+            <li class="blog-card">
+              <button class="blog-card__delete" title="Удалить">✕</button>
+              <div class="blog-card__img"><img src="img/Selection (3) 1.png" alt="Post 6" /></div>
+              <h3 class="blog-card__title">Minim anim pariatur magna duis sit et dolor incididunt</h3>
+              <span class="blog-card__date">Oct 16, 2025</span>
+            </li>
+          </ul>
           <div class="pagination">
             <a href="#" class="btn-outline">Next →</a>
           </div>
@@ -131,7 +149,7 @@
     </div>
   </dialog>
 
-  <!-- TEMPLATE -->
+  <!-- TEMPLATE ДЛЯ НОВОЙ КАРТОЧКИ -->
   <template id="cardTemplate">
     <li class="blog-card">
       <button class="blog-card__delete" title="Удалить">✕</button>
@@ -178,6 +196,6 @@
     </div>
   </footer>
 
-  <script src="blog.js"></script>
+  <script src="js_blog.js"></script>
 </body>
 </html>
