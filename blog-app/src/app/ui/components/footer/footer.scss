@@ -1,0 +1,114 @@
+.footer {
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: 72px 0;
+}
+
+.footer__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: start;
+}
+
+.footer__title {
+  color: var(--color-white);
+  margin-bottom: 24px;
+}
+
+.footer__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #aaaaaa;
+  margin-bottom: 20px;
+
+  a {
+    color: var(--color-green);
+    text-decoration: none;
+    transition: color 0.25s ease;
+
+    &:hover { color: #3d9440; }
+  }
+}
+
+.footer__socials {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.footer__social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #333333;
+  color: #aaaaaa;
+  text-decoration: none;
+  transition: border-color 0.25s ease, color 0.25s ease;
+
+  &:hover {
+    border-color: var(--color-green);
+    color: var(--color-green);
+  }
+}
+
+.footer__copy {
+  font-size: 12px;
+  color: #555555;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form__label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #cccccc;
+}
+
+.form__input,
+.form__textarea {
+  background: transparent;
+  border: 1px solid #333333;
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--color-white);
+  outline: none;
+  resize: none;
+  transition: border-color 0.25s ease;
+
+  &::placeholder { color: #555555; }
+  &:focus { border-color: var(--color-green); }
+}
+
+.form__btn {
+  align-self: flex-start;
+  padding: 10px 28px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-white);
+  background: var(--color-green);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+
+  &:hover { background: #3d9440; }
+}
