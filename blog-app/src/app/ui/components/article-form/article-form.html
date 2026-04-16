@@ -1,0 +1,28 @@
+<div class="article-form">
+  <p class="article-form__title">Новая статья</p>
+  <div class="article-form__group">
+    <label class="article-form__label" for="articleTitle">Заголовок *</label>
+    <input 
+      class="article-form__input" 
+      type="text" 
+      id="articleTitle" 
+      placeholder="Введите заголовок" 
+      [(ngModel)]="title"
+      required 
+    />
+  </div>
+  <div class="article-form__group">
+    <label class="article-form__label" for="articleText">Текст *</label>
+    <textarea 
+      class="article-form__textarea" 
+      id="articleText" 
+      placeholder="Введите текст статьи" 
+      [(ngModel)]="content"
+      required
+    ></textarea>
+  </div>
+  <div class="article-form__actions">
+    <button class="article-form__save" (click)="onSubmit()">Сохранить</button>
+    <button class="article-form__cancel" (click)="onCancel()">Отмена</button>
+  </div>
+</div>

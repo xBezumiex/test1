@@ -30,19 +30,11 @@
     <h2 class="featured__title">Featured posts</h2>
     <p class="featured__sub">Sint occaecat deserunt aliquo do occaecat at quis</p>
     <ul class="featured__list">
-      <li class="featured__item">
+      <li class="featured__item" *ngFor="let article of featuredArticles">
         <div class="featured__info">
           <span class="featured__category">Product photography</span>
-          <h3 class="featured__name">Paris secrets</h3>
-          <p class="featured__desc">Sint occaecat deserunt aliquo do occaecat at quis. Cupidatat magna fugiat quis at dolé est in volup</p>
-        </div>
-        <div class="featured__img-wrap"></div>
-      </li>
-      <li class="featured__item">
-        <div class="featured__info">
-          <span class="featured__category">Nature</span>
-          <h3 class="featured__name">Oceanic feeling</h3>
-          <p class="featured__desc">Sint occaecat deserunt aliquo do occaecat at quis. Cupidatat magna fugiat quis at dolé est in volup</p>
+          <h3 class="featured__name">{{ article.title }}</h3>
+          <p class="featured__desc">{{ article.content }}</p>
         </div>
         <div class="featured__img-wrap"></div>
       </li>
