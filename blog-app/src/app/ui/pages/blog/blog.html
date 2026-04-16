@@ -1,0 +1,92 @@
+<div class="page-layout">
+  <!-- САЙДБАР -->
+  <aside class="sidebar">
+    <button class="sidebar__btn" (click)="toggleForm()" title="Создать статью">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+    </button>
+    <button class="sidebar__btn" title="Показать статистику">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="12" width="4" height="9"/>
+        <rect x="10" y="7" width="4" height="14"/>
+        <rect x="17" y="3" width="4" height="18"/>
+      </svg>
+    </button>
+  </aside>
+
+  <div class="main-content">
+    <!-- ФОРМА -->
+    <div *ngIf="showForm" class="article-form-wrap">
+      <app-article-form 
+        (submitArticle)="onArticleSubmit($event)"
+        (cancelForm)="onFormCancel()"
+      ></app-article-form>
+    </div>
+
+    <main>
+      <section class="blog-hero container">
+        <div class="blog-hero__top">
+          <div>
+            <h1 class="blog-hero__title">My blogs</h1>
+            <p class="blog-hero__sub">Lorem occaecat proident excepteur commodo at nulla elusmod. Elit esse aute officia dolor elit aute</p>
+          </div>
+          <div class="blog-badge-wrap">
+            <svg class="blog-badge" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+              <path id="blog-badge-path" d="M55,55 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" fill="none"/>
+              <text><textPath href="#blog-badge-path">MY BLOGS • MY BLOGS • MY BLOGS •</textPath></text>
+            </svg>
+            <span class="blog-badge-arrow">↓</span>
+          </div>
+        </div>
+        <article class="blog-featured" *ngIf="articles.length > 0">
+          <div class="blog-featured__img">
+            <img src="img/image 2.png" alt="Featured post" />
+          </div>
+          <div class="blog-featured__text">
+            <h2 class="blog-featured__title">{{ articles[0].title }}</h2>
+            <p class="blog-featured__desc">{{ articles[0].content }}</p>
+            <span class="blog-featured__date">{{ articles[0].date }}</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="blog-grid-section container">
+        <!-- ПУСТОЕ СОСТОЯНИЕ -->
+        <div *ngIf="articles.length === 0" class="blog-empty">
+          <div class="blog-empty__icon">📝</div>
+          <p class="blog-empty__title">Статей пока нет</p>
+          <p class="blog-empty__text">Нажмите «+» в боковой панели, чтобы создать первую статью</p>
+        </div>
+
+        <!-- СЕТКА СТАТЕЙ -->
+        <ul *ngIf="articles.length > 0" class="blog-grid">
+          <app-article 
+            *ngFor="let article of articles" 
+            [article]="article"
+            (deleteArticle)="onArticleDelete($event)"
+          ></app-article>
+        </ul>
+
+        <div class="pagination">
+          <a href="#" class="btn-outline">Next →</a>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- ДИАЛОГ СТАТИСТИКИ -->
+<dialog class="stats-dialog" id="statsDialog">
+  <div class="stats-dialog__inner">
+    <div class="stats-dialog__header">
+      <span class="stats-dialog__title">Статистика страницы</span>
+      <button class="stats-dialog__close" id="statsClose">✕</button>
+    </div>
+    <div class="stats-dialog__item">
+      <span class="stats-dialog__label">Количество постов</span>
+      <span class="stats-dialog__value">{{ articleCount }}</span>
+    </div>
+  </div>
+</dialog>
