@@ -1,45 +1,72 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Article } from '../../../models/article.model';
 
 @Component({
   selector: 'app-article-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './article-form.html',
   styleUrl: './article-form.scss'
 })
-export class ArticleFormComponent {
+export class ArticleFormComponent implements OnChanges {
+  @Input() article: Article | null = null;
   @Output() submitArticle = new EventEmitter<Article>();
   @Output() cancelForm = new EventEmitter<void>();
 
-  title: string = '';
-  content: string = '';
+  form: FormGroup;
 
-  onSubmit(): void {
-    if (this.title.trim() && this.content.trim()) {
-      const newArticle: Article = {
-        id: Date.now(),
-        title: this.title,
-        content: this.content,
-        date: new Date().toLocaleDateString('en-US', { 
-          year: 'numeric', 
-          month: 'short', 
-          day: 'numeric' 
-        })
-      };
-      this.submitArticle.emit(newArticle);
-      this.resetForm();
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(25)]],
+      content: ['', Validators.required]
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['article']) {
+      if (this.article) {
+        this.form.patchValue({ title: this.article.title, content: this.article.content });
+      } else {
+        this.form.reset();
+      }
     }
   }
 
-  onCancel(): void {
-    this.resetForm();
-    this.cancelForm.emit();
+  get isEditMode(): boolean {
+    return this.article !== null;
   }
 
-  private resetForm(): void {
-    this.title = '';
-    this.content = '';
+  get titleControl() {
+    return this.form.get('title')!;
+  }
+
+  get contentControl() {
+    return this.form.get('content')!;
+  }
+
+  onSubmit(): void {
+    if (this.form.invalid) return;
+
+    const { title, content } = this.form.value;
+
+    if (this.isEditMode && this.article) {
+      this.submitArticle.emit({ ...this.article, title: title.trim(), content: content.trim() });
+    } else {
+      this.submitArticle.emit({
+        id: Date.now(),
+        title: title.trim(),
+        content: content.trim(),
+        date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+      });
+    }
+
+    this.form.reset();
+  }
+
+  onCancel(): void {
+    this.form.reset();
+    this.cancelForm.emit();
   }
 }

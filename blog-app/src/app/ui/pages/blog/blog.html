@@ -7,7 +7,7 @@
         <line x1="5" y1="12" x2="19" y2="12"/>
       </svg>
     </button>
-    <button class="sidebar__btn" title="Показать статистику">
+    <button class="sidebar__btn" (click)="toggleStats()" title="Показать статистику">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <rect x="3" y="12" width="4" height="9"/>
         <rect x="10" y="7" width="4" height="14"/>
@@ -19,7 +19,8 @@
   <div class="main-content">
     <!-- ФОРМА -->
     <div *ngIf="showForm" class="article-form-wrap">
-      <app-article-form 
+      <app-article-form
+        [article]="editingArticle"
         (submitArticle)="onArticleSubmit($event)"
         (cancelForm)="onFormCancel()"
       ></app-article-form>
@@ -62,10 +63,11 @@
 
         <!-- СЕТКА СТАТЕЙ -->
         <ul *ngIf="articles.length > 0" class="blog-grid">
-          <app-article 
-            *ngFor="let article of articles" 
+          <app-article
+            *ngFor="let article of articles"
             [article]="article"
             (deleteArticle)="onArticleDelete($event)"
+            (editArticle)="onArticleEdit($event)"
           ></app-article>
         </ul>
 
@@ -77,16 +79,17 @@
   </div>
 </div>
 
-<!-- ДИАЛОГ СТАТИСТИКИ -->
-<dialog class="stats-dialog" id="statsDialog">
+<!-- СТАТИСТИКА -->
+<div class="stats-overlay" *ngIf="showStats" (click)="toggleStats()"></div>
+<div class="stats-dialog" *ngIf="showStats">
   <div class="stats-dialog__inner">
     <div class="stats-dialog__header">
       <span class="stats-dialog__title">Статистика страницы</span>
-      <button class="stats-dialog__close" id="statsClose">✕</button>
+      <button class="stats-dialog__close" (click)="toggleStats()">✕</button>
     </div>
     <div class="stats-dialog__item">
       <span class="stats-dialog__label">Количество постов</span>
       <span class="stats-dialog__value">{{ articleCount }}</span>
     </div>
   </div>
-</dialog>
+</div>

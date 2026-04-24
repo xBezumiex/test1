@@ -1,28 +1,37 @@
 <div class="article-form">
-  <p class="article-form__title">Новая статья</p>
-  <div class="article-form__group">
-    <label class="article-form__label" for="articleTitle">Заголовок *</label>
-    <input 
-      class="article-form__input" 
-      type="text" 
-      id="articleTitle" 
-      placeholder="Введите заголовок" 
-      [(ngModel)]="title"
-      required 
-    />
-  </div>
-  <div class="article-form__group">
-    <label class="article-form__label" for="articleText">Текст *</label>
-    <textarea 
-      class="article-form__textarea" 
-      id="articleText" 
-      placeholder="Введите текст статьи" 
-      [(ngModel)]="content"
-      required
-    ></textarea>
-  </div>
-  <div class="article-form__actions">
-    <button class="article-form__save" (click)="onSubmit()">Сохранить</button>
-    <button class="article-form__cancel" (click)="onCancel()">Отмена</button>
-  </div>
+  <p class="article-form__title">{{ isEditMode ? 'Изменить статью' : 'Создание статьи' }}</p>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="article-form__group">
+      <label class="article-form__label" for="articleTitle">Заголовок *</label>
+      <input
+        class="article-form__input"
+        [class.article-form__input--error]="titleControl.invalid && titleControl.touched"
+        type="text"
+        id="articleTitle"
+        placeholder="Введите заголовок"
+        formControlName="title"
+      />
+      <span class="article-form__error" *ngIf="titleControl.invalid && titleControl.touched">
+        <span *ngIf="titleControl.errors?.['required']">Поле обязательно для заполнения</span>
+        <span *ngIf="titleControl.errors?.['minlength']">Минимальная длина — 25 символов</span>
+      </span>
+    </div>
+    <div class="article-form__group">
+      <label class="article-form__label" for="articleText">Текст *</label>
+      <textarea
+        class="article-form__textarea"
+        [class.article-form__textarea--error]="contentControl.invalid && contentControl.touched"
+        id="articleText"
+        placeholder="Введите текст статьи"
+        formControlName="content"
+      ></textarea>
+      <span class="article-form__error" *ngIf="contentControl.invalid && contentControl.touched">
+        Поле обязательно для заполнения
+      </span>
+    </div>
+    <div class="article-form__actions">
+      <button class="article-form__save" type="submit" [disabled]="form.invalid">Сохранить</button>
+      <button class="article-form__cancel" type="button" (click)="onCancel()">Отмена</button>
+    </div>
+  </form>
 </div>
