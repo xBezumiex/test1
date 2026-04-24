@@ -34,37 +34,17 @@ export class BlogComponent {
   ];
 
   showForm: boolean = false;
-  showStats: boolean = false;
-  editingArticle: Article | null = null;
 
   toggleForm(): void {
     this.showForm = !this.showForm;
-    if (this.showForm) {
-      this.editingArticle = null;
-    }
-  }
-
-  toggleStats(): void {
-    this.showStats = !this.showStats;
-  }
-
-  onArticleEdit(article: Article): void {
-    this.editingArticle = article;
-    this.showForm = true;
   }
 
   onArticleSubmit(article: Article): void {
-    if (this.editingArticle) {
-      this.articles = this.articles.map(a => (a.id === article.id ? article : a));
-      this.editingArticle = null;
-    } else {
-      this.articles.push(article);
-    }
+    this.articles.push(article);
     this.showForm = false;
   }
 
   onFormCancel(): void {
-    this.editingArticle = null;
     this.showForm = false;
   }
 

@@ -11,13 +11,8 @@ import { Article } from '../../../models/article.model';
 export class ArticleComponent {
   @Input() article!: Article;
   @Output() deleteArticle = new EventEmitter<number>();
-  @Output() editArticle = new EventEmitter<Article>();
 
   onDelete(): void {
     this.deleteArticle.emit(this.article.id);
-  }
-
-  onEdit(): void {
-    this.editArticle.emit(this.article);
   }
 }
