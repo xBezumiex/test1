@@ -30,8 +30,8 @@ jobs:
         working-directory: ./blog-app
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./blog-app/dist/blog-app/browser
-          force_orphan: true
+          folder: blog-app/dist/blog-app/browser
+          branch: gh-pages
+          clean: true
