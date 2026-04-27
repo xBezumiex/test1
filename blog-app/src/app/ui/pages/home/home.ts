@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { Article } from '../../../models/article.model';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
 export class HomeComponent {
-  featuredArticles: Article[] = [
+  protected featuredArticles: Article[] = [
     {
       id: 1,
       title: 'Paris secrets',

@@ -9,15 +9,15 @@ import { Article } from '../../../models/article.model';
   styleUrl: './article.scss'
 })
 export class ArticleComponent {
-  @Input() article!: Article;
-  @Output() deleteArticle = new EventEmitter<number>();
-  @Output() editArticle = new EventEmitter<Article>();
+  @Input() public article!: Article;
+  @Output() public deleteArticle = new EventEmitter<number>();
+  @Output() public editArticle = new EventEmitter<Article>();
 
-  onDelete(): void {
+  protected onDelete(): void {
     this.deleteArticle.emit(this.article.id);
   }
 
-  onEdit(): void {
+  protected onEdit(): void {
     this.editArticle.emit(this.article);
   }
 }

@@ -1,21 +1,20 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { Article } from '../../../models/article.model';
 
 @Component({
   selector: 'app-article-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './article-form.html',
   styleUrl: './article-form.scss'
 })
 export class ArticleFormComponent implements OnChanges {
-  @Input() article: Article | null = null;
-  @Output() submitArticle = new EventEmitter<Article>();
-  @Output() cancelForm = new EventEmitter<void>();
+  @Input() public article: Article | null = null;
+  @Output() public submitArticle = new EventEmitter<Article>();
+  @Output() public cancelForm = new EventEmitter<void>();
 
-  form: FormGroup;
+  protected form: FormGroup;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -34,19 +33,19 @@ export class ArticleFormComponent implements OnChanges {
     }
   }
 
-  get isEditMode(): boolean {
+  protected get isEditMode(): boolean {
     return this.article !== null;
   }
 
-  get titleControl() {
+  protected get titleControl() {
     return this.form.get('title')!;
   }
 
-  get contentControl() {
+  protected get contentControl() {
     return this.form.get('content')!;
   }
 
-  onSubmit(): void {
+  protected onSubmit(): void {
     if (this.form.invalid) return;
 
     const { title, content } = this.form.value;
@@ -65,7 +64,7 @@ export class ArticleFormComponent implements OnChanges {
     this.form.reset();
   }
 
-  onCancel(): void {
+  protected onCancel(): void {
     this.form.reset();
     this.cancelForm.emit();
   }

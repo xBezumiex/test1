@@ -18,13 +18,15 @@
 
   <div class="main-content">
     <!-- ФОРМА -->
-    <div *ngIf="showForm" class="article-form-wrap">
-      <app-article-form
-        [article]="editingArticle"
-        (submitArticle)="onArticleSubmit($event)"
-        (cancelForm)="onFormCancel()"
-      ></app-article-form>
-    </div>
+    @if (showForm) {
+      <div class="article-form-wrap">
+        <app-article-form
+          [article]="editingArticle"
+          (submitArticle)="onArticleSubmit($event)"
+          (cancelForm)="onFormCancel()"
+        ></app-article-form>
+      </div>
+    }
 
     <main>
       <section class="blog-hero container">
@@ -41,35 +43,39 @@
             <span class="blog-badge-arrow">↓</span>
           </div>
         </div>
-        <article class="blog-featured" *ngIf="articles.length > 0">
-          <div class="blog-featured__img">
-            <img src="img/image 2.png" alt="Featured post" />
-          </div>
-          <div class="blog-featured__text">
-            <h2 class="blog-featured__title">{{ articles[0].title }}</h2>
-            <p class="blog-featured__desc">{{ articles[0].content }}</p>
-            <span class="blog-featured__date">{{ articles[0].date }}</span>
-          </div>
-        </article>
+        @if (articles.length > 0) {
+          <article class="blog-featured">
+            <div class="blog-featured__img">
+              <img src="img/image 2.png" alt="Featured post" />
+            </div>
+            <div class="blog-featured__text">
+              <h2 class="blog-featured__title">{{ articles[0].title }}</h2>
+              <p class="blog-featured__desc">{{ articles[0].content }}</p>
+              <span class="blog-featured__date">{{ articles[0].date }}</span>
+            </div>
+          </article>
+        }
       </section>
 
       <section class="blog-grid-section container">
-        <!-- ПУСТОЕ СОСТОЯНИЕ -->
-        <div *ngIf="articles.length === 0" class="blog-empty">
-          <div class="blog-empty__icon">📝</div>
-          <p class="blog-empty__title">Статей пока нет</p>
-          <p class="blog-empty__text">Нажмите «+» в боковой панели, чтобы создать первую статью</p>
-        </div>
-
-        <!-- СЕТКА СТАТЕЙ -->
-        <ul *ngIf="articles.length > 0" class="blog-grid">
-          <app-article
-            *ngFor="let article of articles"
-            [article]="article"
-            (deleteArticle)="onArticleDelete($event)"
-            (editArticle)="onArticleEdit($event)"
-          ></app-article>
-        </ul>
+        <!-- СЕТКА СТАТЕЙ / ПУСТОЕ СОСТОЯНИЕ -->
+        @if (articles.length > 0) {
+          <ul class="blog-grid">
+            @for (article of articles; track article.id) {
+              <app-article
+                [article]="article"
+                (deleteArticle)="onArticleDelete($event)"
+                (editArticle)="onArticleEdit($event)"
+              ></app-article>
+            }
+          </ul>
+        } @else {
+          <div class="blog-empty">
+            <div class="blog-empty__icon">📝</div>
+            <p class="blog-empty__title">Статей пока нет</p>
+            <p class="blog-empty__text">Нажмите «+» в боковой панели, чтобы создать первую статью</p>
+          </div>
+        }
 
         <div class="pagination">
           <a href="#" class="btn-outline">Next →</a>
@@ -80,16 +86,18 @@
 </div>
 
 <!-- СТАТИСТИКА -->
-<div class="stats-overlay" *ngIf="showStats" (click)="toggleStats()"></div>
-<div class="stats-dialog" *ngIf="showStats">
-  <div class="stats-dialog__inner">
-    <div class="stats-dialog__header">
-      <span class="stats-dialog__title">Статистика страницы</span>
-      <button class="stats-dialog__close" (click)="toggleStats()">✕</button>
-    </div>
-    <div class="stats-dialog__item">
-      <span class="stats-dialog__label">Количество постов</span>
-      <span class="stats-dialog__value">{{ articleCount }}</span>
+@if (showStats) {
+  <div class="stats-overlay" (click)="toggleStats()"></div>
+  <div class="stats-dialog">
+    <div class="stats-dialog__inner">
+      <div class="stats-dialog__header">
+        <span class="stats-dialog__title">Статистика страницы</span>
+        <button class="stats-dialog__close" (click)="toggleStats()">✕</button>
+      </div>
+      <div class="stats-dialog__item">
+        <span class="stats-dialog__label">Количество постов</span>
+        <span class="stats-dialog__value">{{ articleCount }}</span>
+      </div>
     </div>
   </div>
-</div>
+}

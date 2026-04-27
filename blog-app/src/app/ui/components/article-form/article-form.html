@@ -11,10 +11,16 @@
         placeholder="Введите заголовок"
         formControlName="title"
       />
-      <span class="article-form__error" *ngIf="titleControl.invalid && titleControl.touched">
-        <span *ngIf="titleControl.errors?.['required']">Поле обязательно для заполнения</span>
-        <span *ngIf="titleControl.errors?.['minlength']">Минимальная длина — 25 символов</span>
-      </span>
+      @if (titleControl.invalid && titleControl.touched) {
+        <span class="article-form__error">
+          @if (titleControl.errors?.['required']) {
+            <span>Поле обязательно для заполнения</span>
+          }
+          @if (titleControl.errors?.['minlength']) {
+            <span>Минимальная длина — 25 символов</span>
+          }
+        </span>
+      }
     </div>
     <div class="article-form__group">
       <label class="article-form__label" for="articleText">Текст *</label>
@@ -25,9 +31,9 @@
         placeholder="Введите текст статьи"
         formControlName="content"
       ></textarea>
-      <span class="article-form__error" *ngIf="contentControl.invalid && contentControl.touched">
-        Поле обязательно для заполнения
-      </span>
+      @if (contentControl.invalid && contentControl.touched) {
+        <span class="article-form__error">Поле обязательно для заполнения</span>
+      }
     </div>
     <div class="article-form__actions">
       <button class="article-form__save" type="submit" [disabled]="form.invalid">Сохранить</button>

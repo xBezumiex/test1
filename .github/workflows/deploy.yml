@@ -5,10 +5,13 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,18 +22,11 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: |
-          cd ./blog-app
-          npm install
-
-      - name: Build
-        run: |
-          cd ./blog-app
-          npm run build
+        run: npm install
+        working-directory: ./blog-app
 
       - name: Deploy to GitHub Pages
-        uses: angular-cli-ghpages:deploy@v4
-        with:
-          deploy-branch: gh-pages
-          build-branch: main
-          repo: ${{ github.repository }}
+        run: npx ng deploy
+        working-directory: ./blog-app
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
