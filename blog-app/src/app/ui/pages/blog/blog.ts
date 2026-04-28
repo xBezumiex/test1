@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { Article } from '../../../models/article.model';
 import { ArticleComponent } from '../../components/article/article';
 import { ArticleFormComponent } from '../../components/article-form/article-form';
@@ -11,7 +11,7 @@ import { ArticleFormComponent } from '../../components/article-form/article-form
   styleUrl: './blog.scss'
 })
 export class BlogComponent {
-  protected articles: Article[] = [
+  protected articles = signal<Article[]>([
     {
       id: 1,
       title: 'Minim anim pariatur magna duis sit et dolor inci',
@@ -30,48 +30,45 @@ export class BlogComponent {
       content: 'Fugiat Lorem veniam cillum officia nisi. Nulla dolore magna minim.',
       date: 'Oct 05, 2025'
     }
-  ];
+  ]);
 
-  protected showForm = false;
-  protected showStats = false;
-  protected editingArticle: Article | null = null;
+  protected showForm = signal(false);
+  protected showStats = signal(false);
+  protected editingArticle = signal<Article | null>(null);
+  protected articleCount = computed(() => this.articles().length);
 
   protected toggleForm(): void {
-    this.showForm = !this.showForm;
-    if (this.showForm) {
-      this.editingArticle = null;
+    this.showForm.update(v => !v);
+    if (this.showForm()) {
+      this.editingArticle.set(null);
     }
   }
 
   protected toggleStats(): void {
-    this.showStats = !this.showStats;
+    this.showStats.update(v => !v);
   }
 
   protected onArticleEdit(article: Article): void {
-    this.editingArticle = article;
-    this.showForm = true;
+    this.editingArticle.set(article);
+    this.showForm.set(true);
   }
 
   protected onArticleSubmit(article: Article): void {
-    if (this.editingArticle) {
-      this.articles = this.articles.map(a => (a.id === article.id ? article : a));
-      this.editingArticle = null;
+    if (this.editingArticle()) {
+      this.articles.update(list => list.map(a => (a.id === article.id ? article : a)));
+      this.editingArticle.set(null);
     } else {
-      this.articles.push(article);
+      this.articles.update(list => [...list, article]);
     }
-    this.showForm = false;
+    this.showForm.set(false);
   }
 
   protected onFormCancel(): void {
-    this.editingArticle = null;
-    this.showForm = false;
+    this.editingArticle.set(null);
+    this.showForm.set(false);
   }
 
   protected onArticleDelete(id: number): void {
-    this.articles = this.articles.filter(article => article.id !== id);
-  }
-
-  protected get articleCount(): number {
-    return this.articles.length;
+    this.articles.update(list => list.filter(a => a.id !== id));
   }
 }

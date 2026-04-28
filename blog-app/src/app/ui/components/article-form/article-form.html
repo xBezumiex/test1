@@ -1,42 +1,43 @@
 <div class="article-form">
-  <p class="article-form__title">{{ isEditMode ? 'Изменить статью' : 'Создание статьи' }}</p>
+  <p class="article-form__title">{{ formTitle() }}</p>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="article-form__group">
+      @let isTitleInvalid = hasError('title');
       <label class="article-form__label" for="articleTitle">Заголовок *</label>
       <input
         class="article-form__input"
-        [class.article-form__input--error]="titleControl.invalid && titleControl.touched"
+        [class.article-form__input--error]="isTitleInvalid"
         type="text"
         id="articleTitle"
         placeholder="Введите заголовок"
         formControlName="title"
       />
-      @if (titleControl.invalid && titleControl.touched) {
-        <span class="article-form__error">
-          @if (titleControl.errors?.['required']) {
-            <span>Поле обязательно для заполнения</span>
-          }
-          @if (titleControl.errors?.['minlength']) {
-            <span>Минимальная длина — 25 символов</span>
-          }
-        </span>
+      @if (isTitleInvalid) {
+        @for (errorMsg of getControlErrors('title'); track $index) {
+          <span class="article-form__error">{{ errorMsg }}</span>
+        }
       }
     </div>
     <div class="article-form__group">
+      @let isContentInvalid = hasError('content');
       <label class="article-form__label" for="articleText">Текст *</label>
       <textarea
         class="article-form__textarea"
-        [class.article-form__textarea--error]="contentControl.invalid && contentControl.touched"
+        [class.article-form__textarea--error]="isContentInvalid"
         id="articleText"
         placeholder="Введите текст статьи"
         formControlName="content"
       ></textarea>
-      @if (contentControl.invalid && contentControl.touched) {
-        <span class="article-form__error">Поле обязательно для заполнения</span>
+      @if (isContentInvalid) {
+        @for (errorMsg of getControlErrors('content'); track $index) {
+          <span class="article-form__error">{{ errorMsg }}</span>
+        }
       }
     </div>
     <div class="article-form__actions">
-      <button class="article-form__save" type="submit" [disabled]="form.invalid">Сохранить</button>
+      <button class="article-form__save" type="submit" [disabled]="form.invalid">
+        {{ saveButtonTitle() }}
+      </button>
       <button class="article-form__cancel" type="button" (click)="onCancel()">Отмена</button>
     </div>
   </form>

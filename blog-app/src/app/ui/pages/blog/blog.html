@@ -18,10 +18,10 @@
 
   <div class="main-content">
     <!-- ФОРМА -->
-    @if (showForm) {
+    @if (showForm()) {
       <div class="article-form-wrap">
         <app-article-form
-          [article]="editingArticle"
+          [article]="editingArticle()"
           (submitArticle)="onArticleSubmit($event)"
           (cancelForm)="onFormCancel()"
         ></app-article-form>
@@ -43,25 +43,24 @@
             <span class="blog-badge-arrow">↓</span>
           </div>
         </div>
-        @if (articles.length > 0) {
+        @if (articles().length > 0) {
           <article class="blog-featured">
             <div class="blog-featured__img">
               <img src="img/image 2.png" alt="Featured post" />
             </div>
             <div class="blog-featured__text">
-              <h2 class="blog-featured__title">{{ articles[0].title }}</h2>
-              <p class="blog-featured__desc">{{ articles[0].content }}</p>
-              <span class="blog-featured__date">{{ articles[0].date }}</span>
+              <h2 class="blog-featured__title">{{ articles()[0].title }}</h2>
+              <p class="blog-featured__desc">{{ articles()[0].content }}</p>
+              <span class="blog-featured__date">{{ articles()[0].date }}</span>
             </div>
           </article>
         }
       </section>
 
       <section class="blog-grid-section container">
-        <!-- СЕТКА СТАТЕЙ / ПУСТОЕ СОСТОЯНИЕ -->
-        @if (articles.length > 0) {
+        @if (articles().length > 0) {
           <ul class="blog-grid">
-            @for (article of articles; track article.id) {
+            @for (article of articles(); track article.id) {
               <app-article
                 [article]="article"
                 (deleteArticle)="onArticleDelete($event)"
@@ -86,7 +85,7 @@
 </div>
 
 <!-- СТАТИСТИКА -->
-@if (showStats) {
+@if (showStats()) {
   <div class="stats-overlay" (click)="toggleStats()"></div>
   <div class="stats-dialog">
     <div class="stats-dialog__inner">
@@ -96,7 +95,7 @@
       </div>
       <div class="stats-dialog__item">
         <span class="stats-dialog__label">Количество постов</span>
-        <span class="stats-dialog__value">{{ articleCount }}</span>
+        <span class="stats-dialog__value">{{ articleCount() }}</span>
       </div>
     </div>
   </div>
