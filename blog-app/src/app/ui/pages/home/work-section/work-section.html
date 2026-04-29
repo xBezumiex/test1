@@ -6,7 +6,7 @@
   <ul class="work__list">
     @for (item of workItems; track item.role) {
       <li class="work__item">
-        <div class="work__logo" [class]="'work__logo--' + item.color"></div>
+        <div [class]="'work__logo work__logo--' + item.color"></div>
         <div>
           <span class="work__role">{{ item.role }}</span>
           <span class="work__company">{{ item.company }}</span>
