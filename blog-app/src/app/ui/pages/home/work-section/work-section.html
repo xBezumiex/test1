@@ -1,0 +1,18 @@
+<section class="work container">
+  <div class="work__left">
+    <h2 class="work__title">My work</h2>
+    <p class="work__sub">Duis nisi do exercitation in iure aliqua commodo nisi eu id reprehenderit dolore fugiat consectetur iure</p>
+  </div>
+  <ul class="work__list">
+    @for (item of workItems; track item.role) {
+      <li class="work__item">
+        <div [class]="'work__logo work__logo--' + item.color"></div>
+        <div>
+          <span class="work__role">{{ item.role }}</span>
+          <span class="work__company">{{ item.company }}</span>
+          <p class="work__desc">{{ item.desc }}</p>
+        </div>
+      </li>
+    }
+  </ul>
+</section>

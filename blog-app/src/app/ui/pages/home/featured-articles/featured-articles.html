@@ -1,0 +1,19 @@
+@if (articles().length > 0) {
+  <section class="featured container">
+    <h2 class="featured__title">Featured posts</h2>
+    <p class="featured__sub">Sint occaecat deserunt aliquo do occaecat at quis</p>
+    <ul class="featured__list">
+      @for (article of articles(); track article.id) {
+        <li class="featured__item">
+          <div class="featured__info">
+            <span class="featured__category">Product photography</span>
+            <h3 class="featured__name">{{ article.title }}</h3>
+            <p class="featured__desc">{{ article.content }}</p>
+          </div>
+          <div class="featured__img-wrap"></div>
+        </li>
+      }
+    </ul>
+    <a [routerLink]="'/blog'" class="btn-outline">Browse all posts →</a>
+  </section>
+}

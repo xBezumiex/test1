@@ -1,7 +1,9 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Article } from '../../../models/article.model';
 import { ArticleComponent } from '../../components/article/article';
 import { ArticleFormComponent } from '../../components/article-form/article-form';
+import { ARTICLES_SERVICE } from '../../../services/articles/articles-service.token';
+import { ArticlesStoreService } from '../../../services/articles-store.service';
 
 @Component({
   selector: 'app-blog',
@@ -10,32 +12,39 @@ import { ArticleFormComponent } from '../../components/article-form/article-form
   templateUrl: './blog.html',
   styleUrl: './blog.scss'
 })
-export class BlogComponent {
-  protected articles = signal<Article[]>([
-    {
-      id: 1,
-      title: 'Minim anim pariatur magna duis sit et dolor inci',
-      content: 'Sint occaecat deserunt aliquo do occaecat ut quis. Cupidatat magna fugiat quis sit duis est in volup',
-      date: 'Oct 16, 2025'
-    },
-    {
-      id: 2,
-      title: 'Esse ad duis occaecat exercitation',
-      content: 'Exercitation in aliqua pariatur. Voluptate deserunt mollit ullamco.',
-      date: 'Oct 10, 2025'
-    },
-    {
-      id: 3,
-      title: 'Dolor sit amet consectetur adipiscing',
-      content: 'Fugiat Lorem veniam cillum officia nisi. Nulla dolore magna minim.',
-      date: 'Oct 05, 2025'
-    }
-  ]);
+export class BlogComponent implements OnInit {
+  private service = inject(ARTICLES_SERVICE);
+  private store = inject(ArticlesStoreService);
 
+  protected articles = this.store.articles;
+  protected currentPage = this.store.currentPage;
+  protected total = signal(0);
   protected showForm = signal(false);
   protected showStats = signal(false);
   protected editingArticle = signal<Article | null>(null);
-  protected articleCount = computed(() => this.articles().length);
+  protected articleCount = computed(() => this.total());
+  protected totalPages = computed(() => Math.ceil(this.total() / 7));
+  protected pages = computed(() =>
+    Array.from({ length: this.totalPages() }, (_, i) => i + 1)
+  );
+
+  ngOnInit(): void {
+    this.loadPage(this.currentPage());
+  }
+
+  private loadPage(page: number): void {
+    this.service.getArticles(page).subscribe(result => {
+      this.store.saveArticles(result.articles);
+      this.store.savePage(page);
+      this.total.set(result.total);
+    });
+  }
+
+  protected onPageChange(page: number): void {
+    this.loadPage(page);
+    this.showForm.set(false);
+    this.editingArticle.set(null);
+  }
 
   protected toggleForm(): void {
     this.showForm.update(v => !v);
@@ -55,10 +64,17 @@ export class BlogComponent {
 
   protected onArticleSubmit(article: Article): void {
     if (this.editingArticle()) {
-      this.articles.update(list => list.map(a => (a.id === article.id ? article : a)));
+      this.service.updateArticle(article, this.currentPage()).subscribe(result => {
+        this.store.saveArticles(result.articles);
+        this.total.set(result.total);
+      });
       this.editingArticle.set(null);
     } else {
-      this.articles.update(list => [...list, article]);
+      this.service.addArticle(article, 1).subscribe(result => {
+        this.store.saveArticles(result.articles);
+        this.store.savePage(1);
+        this.total.set(result.total);
+      });
     }
     this.showForm.set(false);
   }
@@ -69,6 +85,12 @@ export class BlogComponent {
   }
 
   protected onArticleDelete(id: number): void {
-    this.articles.update(list => list.filter(a => a.id !== id));
+    this.service.deleteArticle(id, this.currentPage()).subscribe(result => {
+      this.store.saveArticles(result.articles);
+      this.total.set(result.total);
+      if (result.articles.length === 0 && this.currentPage() > 1) {
+        this.loadPage(this.currentPage() - 1);
+      }
+    });
   }
 }
