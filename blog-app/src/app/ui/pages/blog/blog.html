@@ -76,9 +76,27 @@
           </div>
         }
 
-        <div class="pagination">
-          <a href="#" class="btn-outline">Next →</a>
-        </div>
+        @if (totalPages() > 1) {
+          <div class="pagination">
+            <button
+              class="pagination__btn"
+              [disabled]="currentPage() === 1"
+              (click)="onPageChange(currentPage() - 1)"
+            >← Prev</button>
+            @for (page of pages(); track page) {
+              <button
+                class="pagination__btn"
+                [class.pagination__btn--active]="page === currentPage()"
+                (click)="onPageChange(page)"
+              >{{ page }}</button>
+            }
+            <button
+              class="pagination__btn"
+              [disabled]="currentPage() === totalPages()"
+              (click)="onPageChange(currentPage() + 1)"
+            >Next →</button>
+          </div>
+        }
       </section>
     </main>
   </div>
