@@ -13,6 +13,12 @@
     gap: 4px;
   }
 
+  &__link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
   &__edit,
   &__delete {
     display: flex;
@@ -25,27 +31,26 @@
     background: transparent;
     transition: background 0.2s;
     cursor: pointer;
+
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+    }
   }
 
   &__edit {
-    svg {
-      width: 14px;
-      height: 14px;
-      stroke: var(--color-gray);
-      transition: stroke 0.2s;
-    }
+    color: var(--color-gray);
+    transition: background 0.2s, color 0.2s;
 
     &:hover {
       background: rgba(0, 0, 0, 0.07);
-
-      svg {
-        stroke: var(--color-black);
-      }
+      color: var(--color-black);
     }
   }
 
   &__delete {
-    font-size: 14px;
     color: var(--color-gray);
     transition: background 0.2s, color 0.2s;
 

@@ -1,4 +1,6 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { MatIconModule } from '@angular/material/icon';
 import { Article } from '../../../models/article.model';
 import { ArticleComponent } from '../../components/article/article';
 import { ArticleFormComponent } from '../../components/article-form/article-form';
@@ -8,13 +10,14 @@ import { ArticlesStoreService } from '../../../services/articles-store.service';
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [ArticleComponent, ArticleFormComponent],
+  imports: [ArticleComponent, ArticleFormComponent, MatIconModule],
   templateUrl: './blog.html',
   styleUrl: './blog.scss'
 })
 export class BlogComponent implements OnInit {
   private service = inject(ARTICLES_SERVICE);
   private store = inject(ArticlesStoreService);
+  private titleService = inject(Title);
 
   protected articles = this.store.articles;
   protected currentPage = this.store.currentPage;
@@ -29,6 +32,7 @@ export class BlogComponent implements OnInit {
   );
 
   ngOnInit(): void {
+    this.titleService.setTitle('My Blogs | Blog App');
     this.loadPage(this.currentPage());
   }
 

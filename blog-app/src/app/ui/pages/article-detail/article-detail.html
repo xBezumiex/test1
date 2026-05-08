@@ -1,0 +1,82 @@
+<div class="article-detail container">
+  <a class="article-detail__back" [routerLink]="['/blog']">
+    <mat-icon>arrow_back</mat-icon> Back to Blog
+  </a>
+
+  @if (article()) {
+    <article class="article-detail__article">
+      <div class="article-detail__img">
+        <img src="img/image 2.png" alt="Article image" />
+      </div>
+      <div class="article-detail__content">
+        <h1>{{ article()!.title }}</h1>
+        <span class="article-detail__date">{{ article()!.date }}</span>
+        <p class="article-detail__text">{{ article()!.content }}</p>
+        <div class="article-detail__rating">
+          <button mat-icon-button (click)="onRateArticle(1)" title="Like">
+            <mat-icon>thumb_up</mat-icon>
+          </button>
+          <span class="article-detail__rating-value">{{ article()!.rating ?? 0 }}</span>
+          <button mat-icon-button (click)="onRateArticle(-1)" title="Dislike">
+            <mat-icon>thumb_down</mat-icon>
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <section class="article-detail__comments">
+      <h2>Comments ({{ comments().length }})</h2>
+      @if (comments().length === 0) {
+        <p class="article-detail__no-comments">Нет комментариев. Будьте первым!</p>
+      }
+      @for (comment of comments(); track comment.id) {
+        <mat-card class="comment-card">
+          <mat-card-header>
+            <mat-card-title>{{ comment.name }}</mat-card-title>
+            <mat-card-subtitle>{{ comment.date }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ comment.text }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-icon-button (click)="onRateComment(comment.id, 1)" title="Like">
+              <mat-icon>thumb_up</mat-icon>
+            </button>
+            <span class="comment-rating">{{ comment.rating }}</span>
+            <button mat-icon-button (click)="onRateComment(comment.id, -1)" title="Dislike">
+              <mat-icon>thumb_down</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </section>
+
+    <section class="article-detail__add-comment">
+      <h3>Добавить комментарий</h3>
+      <form [formGroup]="commentForm" (ngSubmit)="onAddComment()">
+        <mat-form-field appearance="outline">
+          <mat-label>Имя</mat-label>
+          <input matInput formControlName="name" />
+          @if (commentForm.get('name')?.invalid && commentForm.get('name')?.touched) {
+            <mat-error>Введите имя</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Комментарий</mat-label>
+          <textarea matInput formControlName="text" rows="4"></textarea>
+          @if (commentForm.get('text')?.invalid && commentForm.get('text')?.touched) {
+            <mat-error>Минимум 10 символов</mat-error>
+          }
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" type="submit" [disabled]="commentForm.invalid">
+            <mat-icon>send</mat-icon>
+            Отправить
+          </button>
+        </div>
+      </form>
+    </section>
+  } @else {
+    <p class="article-detail__loading">Загрузка...</p>
+  }
+</div>
