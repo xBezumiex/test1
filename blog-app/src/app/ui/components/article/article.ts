@@ -1,10 +1,12 @@
 import { Component, input, output } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 import { Article } from '../../../models/article.model';
 
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, MatIconModule],
   templateUrl: './article.html',
   styleUrl: './article.scss'
 })

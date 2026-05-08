@@ -1,4 +1,5 @@
 import { Component, computed, inject, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ARTICLES_SERVICE } from '../../../services/articles/articles-service.token';
 import { ArticlesStoreService } from '../../../services/articles-store.service';
 import { HeroSectionComponent } from './hero-section/hero-section';
@@ -23,10 +24,12 @@ import { HobbySectionComponent } from './hobby-section/hobby-section';
 export class HomeComponent implements OnInit {
   private service = inject(ARTICLES_SERVICE);
   private store = inject(ArticlesStoreService);
+  private titleService = inject(Title);
 
   protected featuredArticles = computed(() => this.store.articles().slice(0, 2));
 
   ngOnInit(): void {
+    this.titleService.setTitle('Home | Blog App');
     if (this.store.articles().length === 0) {
       this.service.getArticles(1).subscribe(result => {
         this.store.saveArticles(result.articles);
