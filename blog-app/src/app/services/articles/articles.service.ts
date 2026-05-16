@@ -9,19 +9,19 @@ const STORAGE_KEY = 'blog_articles';
 
 const SEED_ARTICLES: Article[] = [
   {
-    id: 1,
+    id: '1',
     title: 'Minim anim pariatur magna duis sit et dolor inci',
     content: 'Sint occaecat deserunt aliquo do occaecat ut quis. Cupidatat magna fugiat quis sit duis est in volup.',
     date: 'Oct 16, 2025'
   },
   {
-    id: 2,
+    id: '2',
     title: 'Esse ad duis occaecat exercitation lorem ipsum',
     content: 'Exercitation in aliqua pariatur. Voluptate deserunt mollit ullamco consectetur.',
     date: 'Oct 10, 2025'
   },
   {
-    id: 3,
+    id: '3',
     title: 'Dolor sit amet consectetur adipiscing elit',
     content: 'Fugiat Lorem veniam cillum officia nisi. Nulla dolore magna minim laboris.',
     date: 'Oct 05, 2025'
@@ -49,7 +49,8 @@ export class ArticlesService implements IArticlesService {
   }
 
   addArticle(article: Article, page: number): Observable<PaginatedResult> {
-    const all = [article, ...this.getFromStorage()];
+    const newArticle: Article = { ...article, id: Date.now().toString() };
+    const all = [newArticle, ...this.getFromStorage()];
     this.saveToStorage(all);
     return this.getArticles(page);
   }
@@ -60,7 +61,7 @@ export class ArticlesService implements IArticlesService {
     return this.getArticles(page);
   }
 
-  deleteArticle(id: number, page: number): Observable<PaginatedResult> {
+  deleteArticle(id: string, page: number): Observable<PaginatedResult> {
     const all = this.getFromStorage().filter(a => a.id !== id);
     this.saveToStorage(all);
     return this.getArticles(page);

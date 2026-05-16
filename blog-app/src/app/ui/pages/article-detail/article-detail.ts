@@ -42,7 +42,7 @@ export class ArticleDetailComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = this.route.snapshot.paramMap.get('id')!;
     this.service.getArticleWithComments(id).subscribe(result => {
       this.store.saveArticle(result.article);
       this.store.saveComments(result.comments);
@@ -58,7 +58,7 @@ export class ArticleDetailComponent implements OnInit {
     });
   }
 
-  protected onRateComment(commentId: number, delta: number): void {
+  protected onRateComment(commentId: string, delta: number): void {
     this.service.updateCommentRating(commentId, delta).subscribe(comments => {
       this.store.saveComments(comments);
     });
@@ -68,7 +68,7 @@ export class ArticleDetailComponent implements OnInit {
     if (this.commentForm.invalid) return;
     const { name, text } = this.commentForm.value;
     const comment: Comment = {
-      id: Date.now(),
+      id: '',
       articleId: this.article()!.id,
       name: name!.trim(),
       text: text!.trim(),

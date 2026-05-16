@@ -6,7 +6,11 @@
   @if (article()) {
     <article class="article-detail__article">
       <div class="article-detail__img">
-        <img src="img/image 2.png" alt="Article image" />
+        @if (article()!.image) {
+          <img [src]="article()!.image" [alt]="article()!.title" />
+        } @else {
+          <img src="img/image 2.png" alt="Article image" />
+        }
       </div>
       <div class="article-detail__content">
         <h1>{{ article()!.title }}</h1>

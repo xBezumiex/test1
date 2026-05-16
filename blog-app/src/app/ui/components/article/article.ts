@@ -12,7 +12,7 @@ import { Article } from '../../../models/article.model';
 })
 export class ArticleComponent {
   public article = input.required<Article>();
-  public deleteArticle = output<number>();
+  public deleteArticle = output<string>();
   public editArticle = output<Article>();
 
   protected onDelete(): void {

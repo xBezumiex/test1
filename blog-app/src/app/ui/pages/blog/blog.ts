@@ -2,6 +2,7 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { Article } from '../../../models/article.model';
+import { ArticleFormOutput } from '../../../models/article-form-output.model';
 import { ArticleComponent } from '../../components/article/article';
 import { ArticleFormComponent } from '../../components/article-form/article-form';
 import { ARTICLES_SERVICE } from '../../../services/articles/articles-service.token';
@@ -66,15 +67,15 @@ export class BlogComponent implements OnInit {
     this.showForm.set(true);
   }
 
-  protected onArticleSubmit(article: Article): void {
+  protected onArticleSubmit(data: ArticleFormOutput): void {
     if (this.editingArticle()) {
-      this.service.updateArticle(article, this.currentPage()).subscribe(result => {
+      this.service.updateArticle(data.article, this.currentPage(), data.imageFile).subscribe(result => {
         this.store.saveArticles(result.articles);
         this.total.set(result.total);
       });
       this.editingArticle.set(null);
     } else {
-      this.service.addArticle(article, 1).subscribe(result => {
+      this.service.addArticle(data.article, 1, data.imageFile).subscribe(result => {
         this.store.saveArticles(result.articles);
         this.store.savePage(1);
         this.total.set(result.total);
@@ -88,7 +89,7 @@ export class BlogComponent implements OnInit {
     this.showForm.set(false);
   }
 
-  protected onArticleDelete(id: number): void {
+  protected onArticleDelete(id: string): void {
     this.service.deleteArticle(id, this.currentPage()).subscribe(result => {
       this.store.saveArticles(result.articles);
       this.total.set(result.total);

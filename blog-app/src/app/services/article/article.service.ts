@@ -19,7 +19,7 @@ export class ArticleService implements IArticleService {
     return raw ? (JSON.parse(raw) as Comment[]) : [];
   }
 
-  getArticleWithComments(id: number): Observable<ArticleWithComments> {
+  getArticleWithComments(id: string): Observable<ArticleWithComments> {
     const article = this.getArticles().find(a => a.id === id);
     if (!article) return throwError(() => new Error(`Article ${id} not found`));
     const comments = this.getComments().filter(c => c.articleId === id);
@@ -27,12 +27,13 @@ export class ArticleService implements IArticleService {
   }
 
   addComment(comment: Comment): Observable<Comment[]> {
-    const all = [...this.getComments(), comment];
+    const newComment: Comment = { ...comment, id: Date.now().toString() };
+    const all = [...this.getComments(), newComment];
     localStorage.setItem(COMMENTS_KEY, JSON.stringify(all));
     return of(all.filter(c => c.articleId === comment.articleId));
   }
 
-  updateCommentRating(commentId: number, delta: number): Observable<Comment[]> {
+  updateCommentRating(commentId: string, delta: number): Observable<Comment[]> {
     const all = this.getComments();
     const target = all.find(c => c.id === commentId);
     if (!target) return of([]);
@@ -43,7 +44,7 @@ export class ArticleService implements IArticleService {
     return of(updated.filter(c => c.articleId === target.articleId));
   }
 
-  updateArticleRating(articleId: number, delta: number): Observable<Article> {
+  updateArticleRating(articleId: string, delta: number): Observable<Article> {
     const all = this.getArticles().map(a =>
       a.id === articleId ? { ...a, rating: (a.rating ?? 0) + delta } : a
     );

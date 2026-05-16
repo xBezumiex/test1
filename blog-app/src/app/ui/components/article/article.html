@@ -8,8 +8,15 @@
     </button>
   </div>
   <a class="blog-card__link" [routerLink]="['/blog', article().id]">
-    <div class="blog-card__img"></div>
+    @if (article().image) {
+      <img class="blog-card__img blog-card__img--real" [src]="article().image" [alt]="article().title" />
+    } @else {
+      <div class="blog-card__img"></div>
+    }
     <h3 class="blog-card__title">{{ article().title }}</h3>
+    @if (article().categoryName) {
+      <span class="blog-card__category">{{ article().categoryName }}</span>
+    }
     <span class="blog-card__date">{{ article().date }}</span>
   </a>
 </li>
