@@ -1,4 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,6 +11,12 @@ import { MatInputModule } from '@angular/material/input';
 import { Comment } from '../../../models/comment.model';
 import { ARTICLE_SERVICE } from '../../../services/article/article-service.token';
 import { ArticleStoreService } from '../../../services/article-store.service';
+import {
+  ArticleWebSocketService,
+  WsCommentCreatedPayload,
+  WsCommentRatingChangedPayload,
+  WsArticleRatingChangedPayload
+} from '../../../services/websocket/article-websocket.service';
 
 @Component({
   selector: 'app-article-detail',
@@ -26,12 +33,14 @@ import { ArticleStoreService } from '../../../services/article-store.service';
   templateUrl: './article-detail.html',
   styleUrl: './article-detail.scss'
 })
-export class ArticleDetailComponent implements OnInit {
+export class ArticleDetailComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private service = inject(ARTICLE_SERVICE);
   private store = inject(ArticleStoreService);
   private titleService = inject(Title);
   private fb = inject(FormBuilder);
+  private wsService = inject(ArticleWebSocketService);
+  private destroyRef = inject(DestroyRef);
 
   protected article = this.store.article;
   protected comments = this.store.comments;
@@ -41,13 +50,63 @@ export class ArticleDetailComponent implements OnInit {
     text: ['', [Validators.required, Validators.minLength(10)]]
   });
 
+  private articleId = '';
+
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id')!;
-    this.service.getArticleWithComments(id).subscribe(result => {
+    this.articleId = this.route.snapshot.paramMap.get('id')!;
+
+    this.service.getArticleWithComments(this.articleId).subscribe(result => {
       this.store.saveArticle(result.article);
       this.store.saveComments(result.comments);
       this.titleService.setTitle(result.article.title + ' | Blog App');
     });
+
+    this.initWebSocket();
+  }
+
+  ngOnDestroy(): void {
+    this.wsService.unsubscribeFromArticle(this.articleId);
+  }
+
+  private initWebSocket(): void {
+    this.wsService.connect();
+    this.wsService.subscribeToArticle(this.articleId);
+
+    this.wsService.on<WsCommentCreatedPayload>('comment-created')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(payload => {
+        const existing = this.store.comments();
+        if (existing.some(c => c.id === payload.commentId)) return;
+        const newComment: Comment = {
+          id: payload.commentId,
+          articleId: payload.articleId,
+          name: payload.username,
+          text: payload.content,
+          date: new Date(payload.createdAt).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'short', day: 'numeric'
+          }),
+          rating: 0
+        };
+        this.store.saveComments([...existing, newComment]);
+      });
+
+    this.wsService.on<WsArticleRatingChangedPayload>('article-rating-changed')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(payload => {
+        const article = this.store.article();
+        if (article && article.id === payload.articleId) {
+          this.store.saveArticle({ ...article, rating: payload.rating });
+        }
+      });
+
+    this.wsService.on<WsCommentRatingChangedPayload>('comment-rating-changed')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(payload => {
+        const updated = this.store.comments().map(c =>
+          c.id === payload.commentId ? { ...c, rating: payload.rating } : c
+        );
+        this.store.saveComments(updated);
+      });
   }
 
   protected onRateArticle(delta: number): void {
