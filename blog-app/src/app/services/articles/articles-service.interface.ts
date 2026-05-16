@@ -8,7 +8,7 @@ export interface PaginatedResult {
 
 export interface IArticlesService {
   getArticles(page: number): Observable<PaginatedResult>;
-  addArticle(article: Article, page: number): Observable<PaginatedResult>;
-  updateArticle(article: Article, page: number): Observable<PaginatedResult>;
-  deleteArticle(id: number, page: number): Observable<PaginatedResult>;
+  addArticle(article: Article, page: number, imageFile?: File): Observable<PaginatedResult>;
+  updateArticle(article: Article, page: number, imageFile?: File): Observable<PaginatedResult>;
+  deleteArticle(id: string, page: number): Observable<PaginatedResult>;
 }

@@ -26,7 +26,7 @@ jobs:
         working-directory: ./blog-app
 
       - name: Build
-        run: npm run build
+        run: npm run build -- --configuration=production
         working-directory: ./blog-app
 
       - name: Deploy to GitHub Pages

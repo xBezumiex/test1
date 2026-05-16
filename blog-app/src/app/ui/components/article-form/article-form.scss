@@ -57,6 +57,79 @@
     margin-top: 4px;
   }
 
+  &__mat-field {
+    width: 100%;
+
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+
+  &__file-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border: 1px dashed var(--color-border);
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--color-gray);
+    transition: border-color 0.2s, color 0.2s;
+
+    &:hover {
+      border-color: var(--color-black);
+      color: var(--color-black);
+    }
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &__file-input {
+    display: none;
+  }
+
+  &__preview {
+    position: relative;
+    display: inline-block;
+    max-width: 200px;
+  }
+
+  &__preview-img {
+    width: 200px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--color-border);
+  }
+
+  &__remove-img {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    cursor: pointer;
+
+    mat-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+      line-height: 14px;
+    }
+  }
+
   &__actions {
     display: flex;
     gap: 12px;

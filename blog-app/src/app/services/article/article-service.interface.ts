@@ -8,8 +8,8 @@ export interface ArticleWithComments {
 }
 
 export interface IArticleService {
-  getArticleWithComments(id: number): Observable<ArticleWithComments>;
+  getArticleWithComments(id: string): Observable<ArticleWithComments>;
   addComment(comment: Comment): Observable<Comment[]>;
-  updateCommentRating(commentId: number, delta: number): Observable<Comment[]>;
-  updateArticleRating(articleId: number, delta: number): Observable<Article>;
+  updateCommentRating(commentId: string, delta: number): Observable<Comment[]>;
+  updateArticleRating(articleId: string, delta: number): Observable<Article>;
 }

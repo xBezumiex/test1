@@ -18,6 +18,7 @@
         }
       }
     </div>
+
     <div class="article-form__group">
       @let isContentInvalid = hasError('content');
       <label class="article-form__label" for="articleText">Текст *</label>
@@ -34,6 +35,49 @@
         }
       }
     </div>
+
+    <div class="article-form__group">
+      <label class="article-form__label" for="articleCategory">Категория</label>
+      <mat-form-field appearance="outline" class="article-form__mat-field">
+        <input
+          matInput
+          id="articleCategory"
+          placeholder="Введите или выберите категорию"
+          formControlName="categoryName"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          @for (cat of (filteredCategories$ | async) ?? []; track cat.id) {
+            <mat-option [value]="cat.name">{{ cat.name }}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div class="article-form__group">
+      <label class="article-form__label">Изображение</label>
+      @if (imagePreviewUrl()) {
+        <div class="article-form__preview">
+          <img [src]="imagePreviewUrl()!" alt="Preview" class="article-form__preview-img" />
+          <button type="button" class="article-form__remove-img" (click)="clearImage()" title="Удалить">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      } @else {
+        <label class="article-form__file-label" for="articleImage">
+          <mat-icon>upload</mat-icon>
+          <span>{{ selectedImageFile() ? selectedImageFile()!.name : 'Выбрать файл' }}</span>
+          <input
+            type="file"
+            id="articleImage"
+            class="article-form__file-input"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+          />
+        </label>
+      }
+    </div>
+
     <div class="article-form__actions">
       <button class="article-form__save" type="submit" [disabled]="form.invalid">
         {{ saveButtonTitle() }}
