@@ -62,16 +62,20 @@ export class ArticleFormComponent implements OnInit {
     effect(() => {
       const article = this.article();
       if (article) {
-        this.form.patchValue({
-          title: article.title,
-          content: article.content,
-          categoryName: article.categoryName ?? ''
-        });
+        this.form.patchValue({ title: article.title, content: article.content });
       } else {
         this.form.reset();
         this.selectedImageFile.set(null);
         this.imagePreviewUrl.set(null);
       }
+    });
+
+    effect(() => {
+      const categories = this.categories();
+      const article = this.article();
+      this.form.patchValue({
+        categoryName: categories.find(c => c.id === article?.categoryId)?.name
+      }, { emitEvent: false });
     });
   }
 

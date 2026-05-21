@@ -22,7 +22,7 @@ export class ArticlesHttpService implements IArticlesService {
       })
       .pipe(
         map(res => ({
-          articles: res.data.map(a => this.mapper.toArticle(a)),
+          articles: res.items.map(a => this.mapper.toArticle(a)),
           total: res.total
         }))
       );
