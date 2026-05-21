@@ -7,11 +7,12 @@ import { ArticleComponent } from '../../components/article/article';
 import { ArticleFormComponent } from '../../components/article-form/article-form';
 import { ARTICLES_SERVICE } from '../../../services/articles/articles-service.token';
 import { ArticlesStoreService } from '../../../services/articles-store.service';
+import { HasRoleDirective } from '../../../directives/has-role.directive';
 
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [ArticleComponent, ArticleFormComponent, MatIconModule],
+  imports: [ArticleComponent, ArticleFormComponent, MatIconModule, HasRoleDirective],
   templateUrl: './blog.html',
   styleUrl: './blog.scss'
 })
@@ -53,9 +54,7 @@ export class BlogComponent implements OnInit {
 
   protected toggleForm(): void {
     this.showForm.update(v => !v);
-    if (this.showForm()) {
-      this.editingArticle.set(null);
-    }
+    if (this.showForm()) this.editingArticle.set(null);
   }
 
   protected toggleStats(): void {

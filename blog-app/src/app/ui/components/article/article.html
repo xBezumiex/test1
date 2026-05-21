@@ -1,5 +1,5 @@
 <li class="blog-card">
-  <div class="blog-card__actions">
+  <div *appHasRole="'admin'" class="blog-card__actions">
     <button class="blog-card__edit" title="Редактировать" (click)="onEdit()">
       <mat-icon>edit</mat-icon>
     </button>

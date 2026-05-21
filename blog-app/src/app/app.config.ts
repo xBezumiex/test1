@@ -1,12 +1,16 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter, withHashLocation } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache, ApolloClientOptions } from '@apollo/client/core';
 import { routes } from './app.routes';
 import { environment } from '../environments/environment';
+import { authInterceptor } from './interceptors/auth.interceptor';
+import { AUTH_SERVICE } from './services/auth/auth-service.token';
+import { AuthLocalService } from './services/auth/auth-local.service';
+import { AuthHttpService } from './services/auth/auth-http.service';
 import { ARTICLES_SERVICE } from './services/articles/articles-service.token';
 import { ArticlesService } from './services/articles/articles.service';
 import { ArticlesHttpService } from './services/articles/articles-http.service';
@@ -22,7 +26,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withHashLocation()),
     provideAnimationsAsync(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     ...(environment.useApi
       ? [
           {
@@ -37,6 +41,10 @@ export const appConfig: ApplicationConfig = {
           }
         ]
       : []),
+    {
+      provide: AUTH_SERVICE,
+      useClass: environment.useApi ? AuthHttpService : AuthLocalService
+    },
     {
       provide: ARTICLES_SERVICE,
       useClass: environment.useApi ? ArticlesHttpService : ArticlesService

@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef, effect, inject, OnDestroy, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Comment } from '../../../models/comment.model';
 import { ARTICLE_SERVICE } from '../../../services/article/article-service.token';
 import { ArticleStoreService } from '../../../services/article-store.service';
+import { AuthStoreService } from '../../../services/auth/auth-store.service';
 import {
   ArticleWebSocketService,
   WsCommentCreatedPayload,
@@ -41,6 +42,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   private wsService = inject(ArticleWebSocketService);
   private destroyRef = inject(DestroyRef);
+  protected authStore = inject(AuthStoreService);
 
   protected article = this.store.article;
   protected comments = this.store.comments;
@@ -51,6 +53,19 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   });
 
   private articleId = '';
+
+  constructor() {
+    effect(() => {
+      const user = this.authStore.user();
+      if (user) {
+        this.commentForm.patchValue({ name: user.username }, { emitEvent: false });
+        this.commentForm.controls.name.disable({ emitEvent: false });
+      } else {
+        this.commentForm.controls.name.enable({ emitEvent: false });
+        this.commentForm.patchValue({ name: '' }, { emitEvent: false });
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.articleId = this.route.snapshot.paramMap.get('id')!;
@@ -125,18 +140,21 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
   protected onAddComment(): void {
     if (this.commentForm.invalid) return;
-    const { name, text } = this.commentForm.value;
+    const { text } = this.commentForm.value;
+    const user = this.authStore.user();
+    const name = user?.username ?? (this.commentForm.getRawValue().name ?? '');
     const comment: Comment = {
       id: '',
       articleId: this.article()!.id,
-      name: name!.trim(),
+      name,
       text: text!.trim(),
       date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
       rating: 0
     };
     this.service.addComment(comment).subscribe(comments => {
       this.store.saveComments(comments);
-      this.commentForm.reset();
+      this.commentForm.patchValue({ text: '' });
+      this.commentForm.controls.text.markAsUntouched();
     });
   }
 }

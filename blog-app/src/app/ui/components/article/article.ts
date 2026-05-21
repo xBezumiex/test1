@@ -2,11 +2,12 @@ import { Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { Article } from '../../../models/article.model';
+import { HasRoleDirective } from '../../../directives/has-role.directive';
 
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [RouterLink, MatIconModule],
+  imports: [RouterLink, MatIconModule, HasRoleDirective],
   templateUrl: './article.html',
   styleUrl: './article.scss'
 })
