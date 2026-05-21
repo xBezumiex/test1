@@ -1,12 +1,14 @@
 <div class="page-layout">
   <!-- САЙДБАР -->
   <aside class="sidebar">
-    <button class="sidebar__btn" (click)="toggleForm()" title="Создать статью">
-      <mat-icon>add</mat-icon>
-    </button>
-    <button class="sidebar__btn" (click)="toggleStats()" title="Показать статистику">
-      <mat-icon>bar_chart</mat-icon>
-    </button>
+    <ng-container *appHasRole="'admin'">
+      <button class="sidebar__btn" (click)="toggleForm()" title="Создать статью">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button class="sidebar__btn" (click)="toggleStats()" title="Показать статистику">
+        <mat-icon>bar_chart</mat-icon>
+      </button>
+    </ng-container>
   </aside>
 
   <div class="main-content">

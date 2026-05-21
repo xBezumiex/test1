@@ -43,3 +43,36 @@
     color: var(--color-black);
   }
 }
+
+.nav__auth {
+  display: flex;
+  align-items: center;
+}
+
+.nav__login-btn {
+  background: var(--color-black);
+  color: var(--color-white);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: opacity 0.2s;
+
+  &:hover { opacity: 0.75; }
+}
+
+.nav__user-btn {
+  color: var(--color-gray);
+}
+
+.nav__user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  opacity: 1 !important;
+  color: var(--color-black) !important;
+}

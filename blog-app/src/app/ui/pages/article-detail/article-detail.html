@@ -58,13 +58,15 @@
     <section class="article-detail__add-comment">
       <h3>Добавить комментарий</h3>
       <form [formGroup]="commentForm" (ngSubmit)="onAddComment()">
-        <mat-form-field appearance="outline">
-          <mat-label>Имя</mat-label>
-          <input matInput formControlName="name" />
-          @if (commentForm.get('name')?.invalid && commentForm.get('name')?.touched) {
-            <mat-error>Введите имя</mat-error>
-          }
-        </mat-form-field>
+        @if (!authStore.isLoggedIn()) {
+          <mat-form-field appearance="outline">
+            <mat-label>Имя</mat-label>
+            <input matInput formControlName="name" />
+            @if (commentForm.get('name')?.invalid && commentForm.get('name')?.touched) {
+              <mat-error>Введите имя</mat-error>
+            }
+          </mat-form-field>
+        }
         <mat-form-field appearance="outline">
           <mat-label>Комментарий</mat-label>
           <textarea matInput formControlName="text" rows="4"></textarea>
