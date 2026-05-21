@@ -16,7 +16,7 @@ export class ArticleMapperService {
         month: 'short',
         day: 'numeric'
       }),
-      image: api.image ? `${environment.apiUrl}/uploads/${api.image}` : undefined,
+      image: api.imgSrc ? `${environment.apiUrl}${api.imgSrc}` : undefined,
       rating: api.rating,
       categoryId: api.categoryId ?? undefined,
       categoryName: api.category?.name

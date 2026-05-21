@@ -7,7 +7,7 @@ export const GET_ARTICLE = gql`
       title
       content
       createdAt
-      image
+      imgSrc
       rating
       categoryId
       category {
@@ -38,7 +38,7 @@ export const ARTICLE_RATING_UP = gql`
       title
       content
       createdAt
-      image
+      imgSrc
       rating
       categoryId
       category {
@@ -56,7 +56,7 @@ export const ARTICLE_RATING_DOWN = gql`
       title
       content
       createdAt
-      image
+      imgSrc
       rating
       categoryId
       category {

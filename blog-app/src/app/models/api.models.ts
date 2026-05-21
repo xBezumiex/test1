@@ -8,14 +8,14 @@ export interface ApiArticle {
   title: string;
   content: string;
   createdAt: string;
-  image: string | null;
+  imgSrc: string | null;
   rating: number;
   categoryId: string | null;
   category: ApiCategory | null;
 }
 
 export interface ApiArticlesResponse {
-  data: ApiArticle[];
+  items: ApiArticle[];
   total: number;
 }
 
