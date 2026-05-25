@@ -3,37 +3,15 @@ import { EMPTY, filter, map, Observable, Subject, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { environment } from '../../../environments/environment';
+import {
+  WsEvent,
+  WsSendMessage,
+  WsCommentCreatedPayload,
+  WsCommentRatingChangedPayload,
+  WsArticleRatingChangedPayload
+} from './article-websocket.types';
 
-export interface WsCommentCreatedPayload {
-  commentId: string;
-  articleId: string;
-  content: string;
-  username: string;
-  createdAt: string;
-}
-
-export interface WsCommentRatingChangedPayload {
-  commentId: string;
-  articleId: string;
-  rating: number;
-  prevRating: number;
-}
-
-export interface WsArticleRatingChangedPayload {
-  articleId: string;
-  rating: number;
-  prevRating: number;
-}
-
-interface WsEvent {
-  event: string;
-  data: { type: string; payload: unknown };
-}
-
-interface WsSendMessage {
-  event: string;
-  data: unknown;
-}
+export type { WsCommentCreatedPayload, WsCommentRatingChangedPayload, WsArticleRatingChangedPayload };
 
 @Injectable({ providedIn: 'root' })
 export class ArticleWebSocketService implements OnDestroy {

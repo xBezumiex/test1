@@ -1,10 +1,10 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, inject, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter, withHashLocation } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { APOLLO_OPTIONS } from 'apollo-angular';
+import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
-import { InMemoryCache, ApolloClientOptions } from '@apollo/client/core';
+import { InMemoryCache } from '@apollo/client/core';
 import { routes } from './app.routes';
 import { environment } from '../environments/environment';
 import { authInterceptor } from './interceptors/auth.interceptor';
@@ -29,16 +29,13 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     ...(environment.useApi
       ? [
-          {
-            provide: APOLLO_OPTIONS,
-            useFactory(httpLink: HttpLink): ApolloClientOptions<unknown> {
-              return {
-                link: httpLink.create({ uri: environment.graphqlUrl }),
-                cache: new InMemoryCache()
-              };
-            },
-            deps: [HttpLink]
-          }
+          provideApollo(() => {
+            const httpLink = inject(HttpLink);
+            return {
+              link: httpLink.create({ uri: environment.graphqlUrl }),
+              cache: new InMemoryCache()
+            };
+          })
         ]
       : []),
     {

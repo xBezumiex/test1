@@ -13,8 +13,8 @@
   "packageManager": "npm@10.9.3",
   "dependencies": {
     "@angular/animations": "^21.0.0",
-    "@apollo/client": "^3.11.0",
-    "apollo-angular": "^7.0.0",
+    "@apollo/client": "^4.0.1",
+    "apollo-angular": "^14.0.0",
     "graphql": "^16.9.0",
     "@angular/cdk": "^21.0.0",
     "@angular/common": "^21.2.0",

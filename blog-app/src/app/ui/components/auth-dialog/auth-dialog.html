@@ -72,7 +72,7 @@
     <button
       mat-raised-button
       color="primary"
-      [form]="'loginForm'"
+      form="loginForm"
       type="submit"
       [disabled]="loginForm.invalid || loading()"
     >
@@ -86,7 +86,7 @@
     <button
       mat-raised-button
       color="primary"
-      [form]="'registerForm'"
+      form="registerForm"
       type="submit"
       [disabled]="registerForm.invalid || loading()"
     >
