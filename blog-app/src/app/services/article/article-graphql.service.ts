@@ -3,7 +3,6 @@ import { Apollo } from 'apollo-angular';
 import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { Article } from '../../models/article.model';
 import { Comment } from '../../models/comment.model';
-import { ApiArticle, ApiComment } from '../../models/api.models';
 import { ArticleMapperService } from '../article-mapper.service';
 import { IArticleService, ArticleWithComments } from './article-service.interface';
 import {
@@ -15,14 +14,15 @@ import {
   COMMENT_RATING_UP,
   COMMENT_RATING_DOWN
 } from '../../graphql/article.queries';
-
-interface GetArticleData { article: ApiArticle }
-interface GetCommentsData { commentsByArticle: ApiComment[] }
-interface ArticleRatingUpData { articleRatingUp: ApiArticle }
-interface ArticleRatingDownData { articleRatingDown: ApiArticle }
-interface CreateCommentData { createComment: ApiComment }
-interface CommentRatingUpData { commentRatingUp: Pick<ApiComment, 'id' | 'rating' | 'articleId'> }
-interface CommentRatingDownData { commentRatingDown: Pick<ApiComment, 'id' | 'rating' | 'articleId'> }
+import {
+  GetArticleData,
+  GetCommentsData,
+  ArticleRatingUpData,
+  ArticleRatingDownData,
+  CreateCommentData,
+  CommentRatingUpData,
+  CommentRatingDownData
+} from './article-graphql.types';
 
 @Injectable()
 export class ArticleGraphqlService implements IArticleService {
@@ -41,8 +41,8 @@ export class ArticleGraphqlService implements IArticleService {
       })
     }).pipe(
       map(({ articleRes, commentsRes }) => ({
-        article: this.mapper.toArticle(articleRes.data.article),
-        comments: commentsRes.data.commentsByArticle.map(c => this.mapper.toComment(c))
+        article: this.mapper.toArticle(articleRes.data!.article),
+        comments: commentsRes.data!.commentsByArticle.map(c => this.mapper.toComment(c))
       }))
     );
   }
@@ -65,7 +65,7 @@ export class ArticleGraphqlService implements IArticleService {
           fetchPolicy: 'network-only'
         })
       ),
-      map(res => res.data.commentsByArticle.map(c => this.mapper.toComment(c)))
+      map(res => res.data!.commentsByArticle.map(c => this.mapper.toComment(c)))
     );
   }
 
@@ -83,7 +83,7 @@ export class ArticleGraphqlService implements IArticleService {
           variables: { articleId: updated.articleId },
           fetchPolicy: 'network-only'
         }).pipe(
-          map(r => r.data.commentsByArticle.map(c => this.mapper.toComment(c)))
+          map(r => r.data!.commentsByArticle.map(c => this.mapper.toComment(c)))
         );
       })
     );
